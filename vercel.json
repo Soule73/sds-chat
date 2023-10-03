@@ -1,0 +1,16 @@
+{
+  "installCommand": "\"cd backend && npm install\" \"cd frontend && npm install\"",
+  "buildCommand": "cd frontend vite build",
+  "builds": [
+    {
+      "src": "./backend/server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "server.mjs"
+    }
+  ]
+}
