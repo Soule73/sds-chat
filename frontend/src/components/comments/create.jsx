@@ -20,7 +20,7 @@ export default function Create({ parentId, onSucces = () => { }, placeholder = "
 
         const newComment = { ...form, parent_id: parentId || null };
         await axios.post(
-            `/api/comment`,
+            `/api/comment/create`,
             JSON.stringify(newComment),
             {
                 headers: { "Content-Type": "application/json", }, "Access-Control-Allow-Origin": import.meta.env.VITE_FRONTEND_URL,

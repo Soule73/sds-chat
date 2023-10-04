@@ -8,9 +8,8 @@ const commentRoutes = express.Router();
 
 commentRoutes.post("/", getAllComment);
 
-commentRoutes.post("/:id", findComment);
-
-commentRoutes.post("/", createComment);
+commentRoutes.post("/create", createComment);
+commentRoutes.post("/find/:id", findComment);
 
 // router.patch("/:id", async () => {});
 

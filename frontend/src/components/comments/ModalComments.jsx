@@ -7,7 +7,7 @@ import axios from "axios";
 export default function ModalComments({ show, setShow, comments, setComments, parentId, setParentId, onClose = () => { } }) {
 
     async function getThisComments() {
-        await axios.post(`/api/comment/${parentId}`).then((res) => {
+        await axios.post(`/api/comment/find/${parentId}`).then((res) => {
             setComments(res.data)
         }).catch((e) => {
             console.log(e)
