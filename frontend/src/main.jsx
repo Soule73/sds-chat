@@ -21,10 +21,10 @@ import CommentsList from './components/comments/CommentsList.jsx';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App />}>
-      <Route index={true} path='/' element={<CommentsList />} />
       <Route path='/login' element={<LoginScreen />} />
       <Route path='/register' element={<RegisterScreen />} />
       <Route path='' element={<PrivateRoute />}>
+        <Route index={true} path='/' element={<CommentsList />} />
         <Route path='/profile' element={<ProfileScreen />} />
       </Route>
     </Route>
