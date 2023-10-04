@@ -1,4 +1,4 @@
-# MERN Authentication Starter
+# SDS Social
 
 It includes the following:
 
