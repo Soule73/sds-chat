@@ -22,6 +22,7 @@ export default function CommentsList({ setUser }) {
         ).then((res) => {
             setAllComments(res.data)
         }).catch((e) => {
+
             console.log(e)
             const message = `An error occurred: ${e.message}`;
             window.alert(message);
