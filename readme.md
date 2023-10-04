@@ -22,7 +22,7 @@ Rename the `.env.example` file to `.env` and add the following
 ```
 NODE_ENV = development
 PORT = 5000
-MONGO_URI = your mongodb uri
+MONGODB_URI = your mongodb uri
 JWT_SECRET = 'abc123'
 ```
 
