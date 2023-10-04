@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 // import { Link, useNavigate } from 'react-router-dom';
-import { Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import FormContainer from '../components/FormContainer';
 import { toast } from 'react-toastify';
 import Loader from '../components/Loader';
 import { useUpdateUserMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
+import { Button, Card, Input } from '@material-tailwind/react';
 
 const ProfileScreen = () => {
   const [email, setEmail] = useState('');
@@ -46,55 +45,51 @@ const ProfileScreen = () => {
     }
   };
   return (
-    <FormContainer>
+    <Card className=' max-w-xl mx-auto p-5 mt-24'>
       <h1>Update Profile</h1>
 
-      <Form onSubmit={submitHandler}>
-        <Form.Group className='my-2' controlId='name'>
-          <Form.Label>Name</Form.Label>
-          <Form.Control
+      <form onSubmit={submitHandler}>
+        <div className='my-2' >
+          <Input
+            label='Name'
             type='name'
-            placeholder='Enter name'
             value={name}
             onChange={(e) => setName(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group className='my-2' controlId='email'>
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control
+          ></Input>
+        </div>
+        <div className='my-2'>
+          <Input
             type='email'
-            placeholder='Enter email'
+            label='email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
-        <Form.Group className='my-2' controlId='password'>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
+          ></Input>
+        </div>
+        <div className='my-2' >
+          <Input
+            label='Password'
             type='password'
-            placeholder='Enter password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+          ></Input>
+        </div>
 
-        <Form.Group className='my-2' controlId='confirmPassword'>
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
+        <div className='my-2' >
+          <Input
+            label='Confirm Password'
             type='password'
-            placeholder='Confirm password'
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+          ></Input>
+        </div>
 
         <Button type='submit' variant='primary' className='mt-3'>
           Update
         </Button>
 
         {isLoading && <Loader />}
-      </Form>
-    </FormContainer>
+      </form>
+    </Card>
   );
 };
 

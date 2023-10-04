@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Form, Button, Row, Col } from 'react-bootstrap';
-import FormContainer from '../components/FormContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
 import Loader from '../components/Loader';
+import { Button, Card, Input } from '@material-tailwind/react';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -37,29 +36,27 @@ const LoginScreen = () => {
   };
 
   return (
-    <FormContainer>
+    <Card className=' max-w-xl mx-auto p-5 mt-24'>
       <h1>Sign In</h1>
 
-      <Form onSubmit={submitHandler}>
-        <Form.Group className='my-2' controlId='email'>
-          <Form.Label>Email Address</Form.Label>
-          <Form.Control
+      <form onSubmit={submitHandler}>
+        <div className='my-2' >
+          <Input
+            label='Email Address'
             type='email'
-            placeholder='Enter email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+          ></Input>
+        </div>
 
-        <Form.Group className='my-2' controlId='password'>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
+        <div className='my-2'>
+          <Input
+            label='Password'
             type='password'
-            placeholder='Enter password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-          ></Form.Control>
-        </Form.Group>
+          ></Input>
+        </div>
 
         <Button
           disabled={isLoading}
@@ -69,16 +66,16 @@ const LoginScreen = () => {
         >
           Sign In
         </Button>
-      </Form>
+      </form>
 
       {isLoading && <Loader />}
 
-      <Row className='py-3'>
-        <Col>
-          New Customer? <Link to='/register'>Register</Link>
-        </Col>
-      </Row>
-    </FormContainer>
+      <div className='py-3'>
+        <div>
+          New Customer? <Link to='/register' className=' text-blue-600'>Register</Link>
+        </div>
+      </div>
+    </Card>
   );
 };
 
