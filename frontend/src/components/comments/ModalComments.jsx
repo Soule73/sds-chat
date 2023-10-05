@@ -4,14 +4,14 @@ import Create from "./create";
 import Comments from "./Comments";
 import axios from "axios";
 
-export default function ModalComments({ show, setShow, comments, setComments, parentId, setParentId, onClose = () => { } }) {
+export default function ModalComments({ show, setShow, comments, setComments, parentId, setParentId, onClose = () => { }, likeType }) {
 
     async function getThisComments() {
         await axios.post(`/api/comment/find/${parentId}`).then((res) => {
             setComments(res.data)
         }).catch((e) => {
             console.log(e)
-            const message = `An error occurred: ${e.message}`;
+            const message = `Une erreur se produit: ${e.message}`;
             window.alert(message);
             return;
         });
@@ -24,7 +24,7 @@ export default function ModalComments({ show, setShow, comments, setComments, pa
         <div className=" sticky top-0 z-10 bg-white px-2 border-gray-200/70 border-b">
             <ArrowLongLeftIcon onClick={onclose} className=" w-8 h-auto cursor-pointer" />
         </div>
-        <Comments parent setParentId={setParentId} setShow={setShow} comments={comments} setComments={setComments} />
+        <Comments onSucces={getThisComments} likeType={likeType} parent setParentId={setParentId} setShow={setShow} comments={comments} setComments={setComments} />
         <Create placeholder="Répondez" parentId={parentId} onSucces={getThisComments} />
     </div>)
 }

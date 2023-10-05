@@ -1,16 +1,20 @@
 import Commentaire from "../models/commentModel.js";
+import Like from "../models/likeModel.js";
 
 // Fonction récursive pour récupérer les commentaires et leurs sous-commentaires
 async function getCommentairesRecursif(commentaireId) {
-  const commentaire = await Commentaire.findById(commentaireId).populate(
-    "parent_id"
-  );
+  const commentaire = await Commentaire.findById(commentaireId)
+    .populate("parent_id")
+    .populate("user_id", "name email");
   if (!commentaire) {
     return null;
   }
   const subComments = await Commentaire.find({
     parent_id: commentaire._id,
   });
+  const likes = await Like.find({
+    ref_id: commentaire._id,
+  }).populate("like_id");
   const subCommentsRecursif = await Promise.all(
     subComments.map((sousCommentaire) =>
       getCommentairesRecursif(sousCommentaire._id)
@@ -19,12 +23,17 @@ async function getCommentairesRecursif(commentaireId) {
   return {
     ...commentaire.toObject(),
     subComments: subCommentsRecursif,
+    likes: likes,
+    likesCount: likes.length,
   };
 }
 
 const getAllComment = async (req, res) => {
   try {
-    const commentaires = await Commentaire.find({ parent_id: null });
+    const commentaires = await Commentaire.find({ parent_id: null }).populate(
+      "user_id",
+      "name email"
+    );
     const commentairesRecursif = await Promise.all(
       commentaires.map((commentaire) =>
         getCommentairesRecursif(commentaire._id)
@@ -41,7 +50,9 @@ const getAllComment = async (req, res) => {
 
 const findComment = async (req, res) => {
   try {
-    const commentaires = await Commentaire.find({ _id: req.params.id });
+    const commentaires = await Commentaire.find({
+      _id: req.params.id,
+    }).populate("user_id", "name email");
     const commentairesRecursif = await Promise.all(
       commentaires.map((commentaire) =>
         getCommentairesRecursif(commentaire._id)
@@ -57,12 +68,13 @@ const findComment = async (req, res) => {
 };
 
 const createComment = async (req, res) => {
-  const { content, parent_id } = req.body;
+  const { content, parent_id, user_id } = req.body;
 
   try {
     const nouveauCommentaire = new Commentaire({
       content,
       parent_id,
+      user_id,
     });
     await nouveauCommentaire.save();
     res.json(nouveauCommentaire);

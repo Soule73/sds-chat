@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import Comments from "./Comments";
@@ -13,7 +12,7 @@ export default function CommentsList({ setUser }) {
     const [show, setShow] = useState(false);
     const [parentId, setParentId] = useState("")
     const [comments, setComments] = useState([]);
-
+    const [likeType, setLieType] = useState([])
     async function getAllComments() {
         await axios.post(`/api/comment`,
             {
@@ -21,10 +20,9 @@ export default function CommentsList({ setUser }) {
             }
         ).then((res) => {
             setAllComments(res.data)
+            return;
         }).catch((e) => {
-
-            console.log(e)
-            const message = `An error occurred: ${e.message}`;
+            const message = `Une erreur se produit: ${e.message}`;
             window.alert(message);
             return;
         });
@@ -39,27 +37,39 @@ export default function CommentsList({ setUser }) {
                 withCredentials: true,
             }).then((res) => {
                 setAllComments(res.data)
+                return;
             }).catch((e) => {
-                console.log(e)
-                const message = `An error occurred: ${e.message}`;
-                window.alert(message);
+                const message = `Une erreur se produit: ${e.message}`;
+                console.log(message)
                 return;
             });
         }
-
+        const getLikeType = async () => {
+            await axios.post(`/api/like/type/all`, {
+                withCredentials: true,
+            }).then((res) => {
+                setLieType(res.data)
+                return;
+            }).catch((e) => {
+                const message = `Une erreur se produit: ${e.message}`;
+                console.log(message);
+                return;
+            });
+        }
         getComments();
+        getLikeType()
 
         return;
-    }, [comments, navigate, setUser])
+    }, [allComments, comments, navigate, setUser])
     return (
         <div className=" pt-6 bg-white md:bg-gray-100 flex justify-center items-center min-h-screen selection:bg-red-500 selection:text-white">
             <div className='overflow-y-auto custome-scroll-bar pb-12 min-h-[98dvh] max-h-[98dvh] relative w-full md:w-[37rem] lg:w-[43rem] pt-6 bg-white'>
-                <ModalComments onClose={() => getAllComments()} parentId={parentId} setParentId={setParentId} comments={comments} setComments={setComments} show={show} setShow={setShow} />
+                <ModalComments likeType={likeType} onClose={() => getAllComments()} parentId={parentId} setParentId={setParentId} comments={comments} setComments={setComments} show={show} setShow={setShow} />
 
                 {
                     !show &&
                     <>
-                        <Comments setParentId={setParentId} setComments={setComments} setShow={setShow} comments={allComments} />
+                        <Comments likeType={likeType} setParentId={setParentId} setComments={setComments} setShow={setShow} comments={allComments} />
                         <Create onSucces={getAllComments} />
                     </>
                 }

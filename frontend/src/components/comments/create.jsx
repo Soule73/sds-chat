@@ -2,10 +2,14 @@
 import { PaperAirplaneIcon } from "@heroicons/react/24/solid";
 import axios from "axios";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function Create({ parentId, onSucces = () => { }, placeholder = "Écrivez un commentaire" }) {
+    const { userInfo } = useSelector((state) => state.auth);
+
     const [form, setForm] = useState({
-        content: ""
+        content: "",
+        user_id: userInfo._id
     });
 
     // These methods will update the state properties.

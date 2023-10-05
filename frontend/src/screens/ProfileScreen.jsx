@@ -83,7 +83,7 @@ const ProfileScreen = () => {
           ></Input>
         </div>
 
-        <Button type='submit' variant='primary' className='mt-3'>
+        <Button type='submit' className='mt-3'>
           Update
         </Button>
 

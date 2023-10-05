@@ -1,15 +1,22 @@
 import mongoose, { Schema, model } from "mongoose";
 
-const CommentaireSchema = new Schema({
-  content: String,
-  parent_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Commentaire",
-    default: null,
+const CommentaireSchema = new Schema(
+  {
+    content: String,
+    parent_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Commentaire",
+      default: null,
+    },
+    user_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
   },
-  created_at: { type: Date, default: Date.now },
-  updated_at: { type: Date, default: Date.now },
-});
+  {
+    timestamps: true,
+  }
+);
 
 const Commentaire = model("Commentaire", CommentaireSchema);
 
