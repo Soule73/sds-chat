@@ -32,7 +32,7 @@ const Comment = ({ comment, setShow, setComments, parent, setParentId, likeType,
         onSucces();
     }
     const likeTypeAll = {
-        "like": { text: "J'aime", color: "text-blue-600", emoji: <HandThumbUpIcon className=' rounded-full fill-blue-600 w-6 h-6 stroke-blue-600 ' /> },
+        "like": { text: "J'aime", color: "text-blue-600", emoji: <HandThumbUpIcon className=' rounded-full p-[3px] bg-blue-600 fill-white w-5 h-5 stroke-white ' /> },
         "adore": { text: "J'adore", color: "text-red-400", emoji: "❤️" },
         "united": { text: "Solidaire", color: "text-amber-600", emoji: "🤗" },
         "haha": { text: "Haha", color: "text-blue-600", emoji: "🤣" },
@@ -81,10 +81,10 @@ const Comment = ({ comment, setShow, setComments, parent, setParentId, likeType,
                             </MenuList>
 
                         </Menu>
-                        <p className=' flex text-lg cursor-pointer'>
+                        <p className=' items-center flex text-lg cursor-pointer'>
                             {commentLikeType().length > 0 &&
                                 commentLikeTypeFilter().map((emoji, i) =>
-                                    <span style={{ zIndex: commentLikeTypeFilter().length - i }} key={i} className={`${i > 0 && "-ml-3"} `}>
+                                    <span style={{ zIndex: commentLikeTypeFilter().length - i }} key={i} className={`${i > 0 && "-ml-2"} `}>
                                         {likeTypeAll[emoji].emoji}
                                     </span>)
                             }

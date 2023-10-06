@@ -20,8 +20,12 @@ const createLike = async (req, res) => {
   const { user_id, like_id, ref_id } = req.body;
   const like = await Like.findOne({ ref_id: ref_id, user_id: user_id });
   if (like) {
-    await Like.findOneAndUpdate(like._id, { like_id: like_id });
-    console.log(user_id, like_id, ref_id);
+    if (like.like_id.toString() === like_id) {
+      await Like.findByIdAndRemove(like._id);
+    } else {
+      await Like.findByIdAndUpdate(like._id, { like_id: like_id });
+    }
+    // console.log(user_id, like_id, ref_id);
     res.json("ok");
   } else {
     try {
