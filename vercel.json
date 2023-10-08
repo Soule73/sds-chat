@@ -1,6 +1,6 @@
 {
-  "installCommand": "\"cd backend && npm install\" \"cd frontend && npm install\"",
-  "buildCommand": "\"cd frontend && vite build\"",
+  "installCommand": "npm install --legacy-peer-deps && npm install --legacy-peer-deps --prefix frontend",
+  "buildCommand": "npm run build --prefix frontend",
   "builds": [
     {
       "src": "/backend/server.js",
