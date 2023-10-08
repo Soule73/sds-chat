@@ -32,6 +32,8 @@ const io = new Server(httpServer, {
     credentials: true,
   },
   addTrailingSlash: false,
+  transports: ["websocket"],
+  path: "/api/socket",
 });
 
 app.use(express.json());
