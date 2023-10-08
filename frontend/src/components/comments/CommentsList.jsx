@@ -54,18 +54,15 @@ export default function CommentsList() {
     }, [allComments, setAllComments]);
     return (
         <div className=" pt-6 bg-white md:bg-gray-100 flex justify-center items-center min-h-screen selection:bg-red-500 selection:text-white">
-            <div className=" max-h-screen overflow-y-auto custome-scroll-bar relative w-full md:w-[37rem] lg:w-[43rem] min-h-screen bg-white">
-                <ModalComments likeType={likeType} onClose={() => getAllComments()} parentId={parentId} setParentId={setParentId} comments={comments} setComments={setComments} show={show} setShow={setShow} />
-                <div ref={messagesColumnRef} className=' pb-12   pt-6 bg-white'>
-
-                    {
-                        !show &&
-                        <>
-                            <Comments onSucces={getAllComments} likeType={likeType} setParentId={setParentId} setComments={setComments} setShow={setShow} comments={allComments} />
-                            <Create onSucces={getAllComments} />
-                        </>
-                    }
-                </div>
+            <ModalComments likeType={likeType} onClose={() => getAllComments()} parentId={parentId} setParentId={setParentId} comments={comments} setComments={setComments} show={show} setShow={setShow} />
+            <div ref={messagesColumnRef} className="pb-12   pt-6 max-h-screen overflow-y-auto custome-scroll-bar relative w-full md:w-[37rem] lg:w-[43rem] min-h-screen bg-white">
+                {
+                    !show &&
+                    <>
+                        <Comments onSucces={getAllComments} likeType={likeType} setParentId={setParentId} setComments={setComments} setShow={setShow} comments={allComments} />
+                        <Create onSucces={getAllComments} />
+                    </>
+                }
 
             </div>
         </div>
