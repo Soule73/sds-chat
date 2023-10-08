@@ -31,6 +31,7 @@ const io = new Server(httpServer, {
     origin: process.env.CLIENT_URL,
     credentials: true,
   },
+  addTrailingSlash: false,
 });
 
 app.use(express.json());
