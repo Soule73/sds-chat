@@ -1,23 +1,19 @@
-import Commentaire from "../models/commentModel.js";
 import Like from "../models/likeModel.js";
 import LikeType from "../models/likeTypeModel.js";
 
 // Fonction récursive pour récupérer les commentaires et leurs sous-commentaires
 
-const getAllLikeType = async (req, res) => {
+const getAllLikeTypeSocket = async () => {
   try {
     const liekType = await LikeType.find({});
-    res.json(liekType);
+    return liekType;
   } catch (error) {
     console.error("Erreur lors de la récupération des like :", error);
-    res
-      .status(500)
-      .json({ message: "Erreur lors de la récupération des like" });
+    return { message: "Erreur lors de la récupération des like" };
   }
 };
 
-const createLike = async (req, res) => {
-  const { user_id, like_id, ref_id } = req.body;
+const createLikeSocket = async (ref_id, like_id, user_id) => {
   const like = await Like.findOne({ ref_id: ref_id, user_id: user_id });
   if (like) {
     if (like.like_id.toString() === like_id) {
@@ -25,8 +21,7 @@ const createLike = async (req, res) => {
     } else {
       await Like.findByIdAndUpdate(like._id, { like_id: like_id });
     }
-    // console.log(user_id, like_id, ref_id);
-    res.json("ok");
+    return;
   } else {
     try {
       const nouveauCommentaire = new Like({
@@ -36,10 +31,10 @@ const createLike = async (req, res) => {
       });
 
       await nouveauCommentaire.save();
-      res.json(nouveauCommentaire);
+      return nouveauCommentaire;
     } catch (error) {
       console.error("Erreur lors de l'ajout du like :", error);
-      res.status(500).json({ message: "Erreur lors de l'ajout du like" });
+      return { message: "Erreur lors de l'ajout du like" };
     }
   }
 };
@@ -76,4 +71,4 @@ const createLikeType = async (req, res) => {
   }
 };
 
-export { getAllLikeType, createLike, createLikeType };
+export { getAllLikeTypeSocket, createLikeSocket, createLikeType };

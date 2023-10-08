@@ -28,7 +28,7 @@ async function getCommentairesRecursif(commentaireId) {
   };
 }
 
-const getAllComment = async (req, res) => {
+const getAllCommentSocket = async () => {
   try {
     const commentaires = await Commentaire.find({ parent_id: null }).populate(
       "user_id",
@@ -39,37 +39,33 @@ const getAllComment = async (req, res) => {
         getCommentairesRecursif(commentaire._id)
       )
     );
-    res.json(commentairesRecursif);
+    return commentairesRecursif;
   } catch (error) {
     console.error("Erreur lors de la récupération des commentaires :", error);
-    res
-      .status(500)
-      .json({ message: "Erreur lors de la récupération des commentaires" });
+    return {
+      message: "Erreur lors de la récupération des commentaires",
+    };
   }
 };
 
-const findComment = async (req, res) => {
+const getFindCommentSocket = async (id) => {
   try {
     const commentaires = await Commentaire.find({
-      _id: req.params.id,
+      _id: id,
     }).populate("user_id", "name email");
     const commentairesRecursif = await Promise.all(
       commentaires.map((commentaire) =>
         getCommentairesRecursif(commentaire._id)
       )
     );
-    res.json(commentairesRecursif);
+    return commentairesRecursif;
   } catch (error) {
     console.error("Erreur lors de la récupération des commentaires :", error);
-    res
-      .status(500)
-      .json({ message: "Erreur lors de la récupération des commentaires" });
+    return { message: "Erreur lors de la récupération des commentaires" };
   }
 };
 
-const createComment = async (req, res) => {
-  const { content, parent_id, user_id } = req.body;
-
+const createCommentSocket = async (parent_id, user_id, content) => {
   try {
     const nouveauCommentaire = new Commentaire({
       content,
@@ -77,11 +73,11 @@ const createComment = async (req, res) => {
       user_id,
     });
     await nouveauCommentaire.save();
-    res.json(nouveauCommentaire);
+    return nouveauCommentaire;
   } catch (error) {
     console.error("Erreur lors de l'ajout du commentaire :", error);
-    res.status(500).json({ message: "Erreur lors de l'ajout du commentaire" });
+    return { message: "Erreur lors de l'ajout du commentaire" };
   }
 };
 
-export { getAllComment, findComment, createComment };
+export { getAllCommentSocket, getFindCommentSocket, createCommentSocket };

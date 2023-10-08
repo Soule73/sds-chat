@@ -1,5 +1,5 @@
 {
-  "name": "mern-auth",
+  "name": "SDS Social",
   "version": "1.0.0",
   "type": "module",
   "description": "MERN authentication system",
@@ -10,7 +10,7 @@
     "client": "npm run dev --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
-  "author": "Brad Traversy",
+  "author": "SDS",
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -18,8 +18,10 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
+    "http": "^0.0.1-security",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^7.1.0"
+    "mongoose": "^7.1.0",
+    "socket.io": "^4.7.2"
   },
   "devDependencies": {
     "concurrently": "^8.0.1",

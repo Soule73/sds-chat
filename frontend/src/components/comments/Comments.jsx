@@ -1,39 +1,34 @@
 /* eslint-disable react/prop-types */
-import { HandThumbUpIcon, UserCircleIcon } from '@heroicons/react/24/solid'
+import { HandThumbUpIcon, HeartIcon, UserCircleIcon } from '@heroicons/react/24/solid'
 import moment from "moment/moment";
 import "moment/locale/fr";
 import { Menu, MenuHandler, MenuItem, MenuList, Typography } from '@material-tailwind/react';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { socket } from '../../socket';
 const LastSubComment = ({ last }) => {
     return <p className=' max-h-full text-sm cursor-pointer'>
-        <span className=' font-bold'>{last.user_id.name} </span> {last.content.substring(0, 40) + (last.content.length > 40 && "...")}
+        <span className=' font-bold'>{last.user_id.name} </span> {last.content.substring(0, 40) + (last.content.length > 40 ? "..." : "")}
     </p>
 }
-const Comment = ({ comment, setShow, setComments, parent, setParentId, likeType, onSucces }) => {
+const Comment = ({ comment, setShow, setComments, parent, setParentId, likeType, onSucces = () => { } }) => {
     const commentResponse = (comment) => {
         setComments([comment])
         setParentId(comment._id)
         setShow(true)
-
     }
     const { userInfo } = useSelector((state) => state.auth);
 
-    const likeForm = (ref_id, like_id) => {
-        axios.post('/api/like/create', {
+    const likeForm = async (ref_id, like_id) => {
+        socket.emit('createLikeComment', {
             ref_id: ref_id,
             like_id: like_id,
             user_id: userInfo._id
-        }).catch((e) => {
-            const message = `Une erreur se produit: ${e.message}`;
-            window.alert(message);
-            return;
         });
-        onSucces();
+        socket.on('likeComment', () => onSucces())
     }
     const likeTypeAll = {
-        "like": { text: "J'aime", color: "text-blue-600", emoji: <HandThumbUpIcon className=' rounded-full p-[3px] bg-blue-600 fill-white w-5 h-5 stroke-white ' /> },
-        "adore": { text: "J'adore", color: "text-red-400", emoji: "❤️" },
+        "like": { text: "J'aime", color: "text-blue-600", emoji: <HandThumbUpIcon className=' rounded-full p-1 bg-blue-600 fill-white stroke-white ' /> },
+        "adore": { text: "J'adore", color: "text-red-400", emoji: <HeartIcon className=' rounded-full p-1 bg-red-600 fill-white stroke-white ' /> },
         "united": { text: "Solidaire", color: "text-amber-600", emoji: "🤗" },
         "haha": { text: "Haha", color: "text-blue-600", emoji: "🤣" },
         "wow": { text: "Waouh", color: "text-blue-600", emoji: "😨" },
@@ -56,7 +51,7 @@ const Comment = ({ comment, setShow, setComments, parent, setParentId, likeType,
                     <UserCircleIcon className={`${parent || !comment.parent_id ? "  w-10 h-10" : " w-8 h-8"} rounded-full`} />
                 </div>
                 <div className='mt-1'>
-                    <div className='  bg-gray-200 px-4 py-2 rounded-2xl'>
+                    <div className=' w-auto h-auto bg-gray-200 px-4 md:max-w-[95%] py-2 rounded-2xl'>
                         <p className='text-xs'>
                             <span className=' font-bold'>{comment.user_id.name}</span>, {moment(comment.createdAt)
                                 .locale("fr")
@@ -70,21 +65,21 @@ const Comment = ({ comment, setShow, setComments, parent, setParentId, likeType,
                         </span>
                         <Menu>
                             <MenuHandler>
-                                <span className={`${userIsLike().length > 0 && likeTypeAll[userIsLike()[0].like_id.type].color} cursor-pointer `}>
+                                <span className={`${userIsLike().length > 0 && likeTypeAll[userIsLike()[0].like_id.type].color}  cursor-pointer `}>
 
                                     {userIsLike().length > 0 ? likeTypeAll[userIsLike()[0].like_id.type].text : "J'aime"}
                                 </span>
                             </MenuHandler>
                             <MenuList className=' max-w-[16rem] flex justify-center p-2 flex-wrap gap-3'>
                                 {likeType.map(({ type, _id }) =>
-                                    <MenuItem key={type} onClick={() => likeForm(comment._id, _id)} className={`${currentLike(_id).length > 0 && "bg-blue-50"} !p-1 w-max text-3xl`}>{likeTypeAll[type].emoji}</MenuItem>)}
+                                    <MenuItem key={type} onClick={() => likeForm(comment._id, _id)} className={`${currentLike(_id).length > 0 && "bg-blue-50"} w-12 h-12 !p-1 text-3xl`}>{likeTypeAll[type].emoji}</MenuItem>)}
                             </MenuList>
 
                         </Menu>
-                        <p className=' items-center flex text-lg cursor-pointer'>
+                        <p className=' flex cursor-pointer'>
                             {commentLikeType().length > 0 &&
                                 commentLikeTypeFilter().map((emoji, i) =>
-                                    <span style={{ zIndex: commentLikeTypeFilter().length - i }} key={i} className={`${i > 0 && "-ml-2"} `}>
+                                    <span style={{ zIndex: commentLikeTypeFilter().length - i }} key={i} className={`${i > 0 && "-ml-1"}  w-5 rounded-full text-base h-5 `}>
                                         {likeTypeAll[emoji].emoji}
                                     </span>)
                             }
@@ -96,7 +91,7 @@ const Comment = ({ comment, setShow, setComments, parent, setParentId, likeType,
 
                 </div>
             </div>
-            <div className=' overflow-hidden text-ellipsis max-w-full mt-2 ml-10'>
+            <div className=' overflow-hidden max-w-full mt-2 pl-5'>
                 {parent && comment.subComments &&
                     comment.subComments.map((subComment) => (
                         <Comment onSucces={onSucces} likeType={likeType} setParentId={setParentId} setComments={setComments} setShow={setShow} key={subComment._id} comment={subComment} />
@@ -127,6 +122,7 @@ const Comment = ({ comment, setShow, setComments, parent, setParentId, likeType,
 };
 
 const Comments = ({ comments, setShow, setComments, parent, setParentId, likeType, onSucces = () => { } }) => {
+
     return (
         <div className=' px-2 pt-2  md:min-w-[30rem]'>
             {comments.map((comment) => (
