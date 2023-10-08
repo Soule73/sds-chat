@@ -1,6 +1,5 @@
 import { io } from "socket.io-client";
 
-export const socket = io(undefined, {
+export const socket = io("https://sds-social.vercel.app/", {
   withCredentials: true,
-  transports: ["websocket"], // Required when using Vite
 });
