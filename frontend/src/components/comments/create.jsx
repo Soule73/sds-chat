@@ -30,12 +30,12 @@ export default function Create({ parentId, onSucces = () => { }, placeholder = "
     }
 
     return (
-        <div className=" md:pl-3 bg-white h-min fixed w-full md:w-[37rem] lg:w-[43rem] pr-2 md:pr-0 pb-2 pt-1 bottom-0">
+        <div className=" md:px-3 bg-white h-min fixed w-full md:w-[37rem] lg:w-[43rem] z-10 px-2 pb-2 pt-1 bottom-0">
 
-            <form onSubmit={onSubmit} className=" py-1  bg-gray-100 rounded-3xl px-4 flex gap-x-1">
+            <form onSubmit={onSubmit} className=" py-1 w-full  bg-gray-100 rounded-3xl px-4 flex gap-x-1">
                 <input
                     type="text"
-                    className=" py-1 bg-transparent focus:outline-0 w-full "
+                    className=" py-1 bg-transparent focus:outline-0 w-[96%] "
                     id="content"
                     value={form.content}
                     placeholder={placeholder}

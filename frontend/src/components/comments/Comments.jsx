@@ -50,13 +50,16 @@ const Comment = ({ comment, setShow, setComments, parent, setParentId, likeType,
                 <div>
                     <UserCircleIcon className={`${parent || !comment.parent_id ? "  w-10 h-10" : " w-8 h-8"} rounded-full`} />
                 </div>
-                <div className='mt-1'>
-                    <div className=' w-auto h-auto bg-gray-200 px-4 md:max-w-[95%] py-2 rounded-2xl'>
-                        <p className='text-xs'>
-                            <span className=' font-bold'>{comment.user_id.name}</span>, {moment(comment.createdAt)
-                                .locale("fr")
-                                .fromNow()}
-                        </p>
+                <div className='mt-1 max-w-[92%]'>
+                    <div className=' h-auto bg-gray-200 px-4 py-2 rounded-2xl'>
+                        <div className='text-xs flex'>
+                            <span className=' font-bold'>{comment.user_id.name}</span>
+                            <span>
+                                , {moment(comment.createdAt)
+                                    .locale("fr")
+                                    .fromNow()}
+                            </span>
+                        </div>
                         <p className=' text-base'>{comment.content}</p>
                     </div>
                     <div className=' items-center mt-1 px-3 font-bold text-xs flex gap-2'>
