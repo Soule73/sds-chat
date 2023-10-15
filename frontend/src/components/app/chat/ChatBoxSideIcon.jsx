@@ -2,10 +2,11 @@ import PropTypes from "prop-types";
 import { IconButton } from "@material-tailwind/react";
 import { createElement } from "react";
 
-export default function ChatBoxSideIcon({ name, icon, active, onClick = () => { } }) {
+export default function ChatBoxSideIcon({ name, icon, active, title, onClick = () => { } }) {
     return (
         <div onClick={onClick} className=" cursor-pointer flex justify-center !bg-transparent flex-col gap-y-1 items-center ">
             <IconButton
+                title={title}
                 variant="text"
                 color="blue-gray"
                 className=" !bg-transparent h-6 "

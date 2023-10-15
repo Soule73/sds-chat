@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { socket } from "../../../socket";
 
 // eslint-disable-next-line no-unused-vars
-export default function SendMessage({ chatId, parentId = null, onSucces = () => { }, placeholder = "Écrivez un commentaire" }) {
+export default function SendMessage({ chatId, parentId = null, openChat, placeholder = "Écrivez un commentaire" }) {
     const { userInfo } = useSelector((state) => state.auth);
 
     const [form, setForm] = useState({
@@ -32,7 +32,7 @@ export default function SendMessage({ chatId, parentId = null, onSucces = () => 
     }
 
     return (
-        <div className=" md:px-3 border-t border-gray-300 dark:border-gray-700/30 bg-white dark:bg-slate-800/80 h-min fixed w-full  xl:w-[calc(100%-20rem)] z-10 px-2 pb-2 pt-1 bottom-0">
+        <div className={`${openChat ? "block" : "hidden lg:block"} md:px-3 border-t border-gray-300 dark:border-gray-700/30 bg-white dark:bg-slate-800/80 h-min fixed w-full  xl:w-[calc(100%-20rem)] z-10 px-2 pb-2 pt-1 bottom-0`}>
 
             <form onSubmit={onSubmit} className=" py-1 w-full  bg-gray-100 dark:bg-slate-700 dark:text-slate-50 rounded-3xl px-4 flex gap-x-1">
                 <input

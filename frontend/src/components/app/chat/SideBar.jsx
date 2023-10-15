@@ -20,9 +20,11 @@ const CONST_CHAT_BOX_SIDE_BAR_MENU_ITEM = [
     { id: 3, name: "Contacts", icon: UserIcon },
     { id: 4, name: "Notifications", icon: BellIcon },
 ];
-export default function SideBar({ menuChatOpen, setMenuChatOpen, handleOpen, userChats, setChatId }) {
+export default function SideBar({
+    handleOpenChat,
+    openChat,
+    handleOpen, userChats, setChatId }) {
 
-    const mobileMenuRef = useRef();
     const { userInfo } = useSelector((state) => state.auth);
 
     const [activeSection, setActiveSection] = useState(Number(localStorage.sideBarActiveSection) ?? 1)
@@ -49,29 +51,12 @@ export default function SideBar({ menuChatOpen, setMenuChatOpen, handleOpen, use
             console.error(err);
         }
     };
-    const closeOpenMenus = useCallback(
-        (e) => {
-            if (
-                mobileMenuRef.current &&
-                menuChatOpen &&
-                !mobileMenuRef.current.contains(e.target)
-            ) {
-                setMenuChatOpen(false);
-            }
-        },
-        [menuChatOpen, setMenuChatOpen]
-    );
-
-    useEffect(() => {
-        document.addEventListener("mousedown", closeOpenMenus);
-    }, [closeOpenMenus]);
 
     return <Card
-        className={`${menuChatOpen ? "" : "hidden"
-            } xl:block z-50 !shadow-none absolute !min-h-full !rounded-l w-full bg-black/10 xl:bg-transparent xl:!w-80 !h-full `}
+        className={`${!openChat ? "block" : "hidden lg:block"} lg:block z-10 !shadow-none absolute !min-h-full !rounded-l w-full bg-black/10 lg:bg-transparent lg:!w-80 !h-full `}
     >
-        <div ref={mobileMenuRef}
-            className="border-r border-r-gray-200 !rounded-l !w-80 xl:w-full !h-full bg-white dark:bg-slate-900 dark:border-r-gray-600/30 ">
+        <div
+            className="border-r border-r-gray-200 !rounded-l w-full !h-full bg-white dark:bg-slate-900 dark:border-r-gray-600/30 ">
             <div className=" pt-2 w-full h-60 grid grid-rows-4 ">
                 <div className=" px-3 flex justify-between items-center ">
                     <div className=" gap-1 w-5/6 flex justify-start items-center ">
@@ -124,12 +109,6 @@ export default function SideBar({ menuChatOpen, setMenuChatOpen, handleOpen, use
                                     >
                                         <SwitcherDarkMode />
                                     </MenuItem>
-                                    <MenuItem
-                                        onClick={() => setMenuChatOpen(!menuChatOpen)}
-                                        className=" hover:!bg-blue-gray-50  dark:hover:!bg-slate-900 focus:bg-slate-900 dark:hover:text-slate-100"
-                                    >
-                                        Fermé
-                                    </MenuItem>
                                 </div>
                             </MenuList>
                         </Menu>
@@ -156,6 +135,7 @@ export default function SideBar({ menuChatOpen, setMenuChatOpen, handleOpen, use
                             <ChatBoxSideIcon
                                 key={id}
                                 name={name}
+                                title={name}
                                 icon={icon}
                                 onClick={() => saveActiveSection(id)}
                                 active={id === activeSection}
@@ -224,7 +204,7 @@ export default function SideBar({ menuChatOpen, setMenuChatOpen, handleOpen, use
 
             </div>
             <ListRecentChat activeSection={activeSection} />
-            <ListUserChat setChatId={setChatId} userChats={userChats} activeSection={activeSection} />
+            <ListUserChat handleOpenChat={handleOpenChat} setChatId={setChatId} userChats={userChats} activeSection={activeSection} />
         </div>
     </Card>
 }
@@ -233,7 +213,5 @@ SideBar.propTypes = {
     setChatId: PropTypes.func.isRequired,
     handleOpen: PropTypes.func.isRequired,
     userChats: PropTypes.array.isRequired,
-    menuChatOpen: PropTypes.bool.isRequired,
-    setMenuChatOpen: PropTypes.func.isRequired,
 }
 

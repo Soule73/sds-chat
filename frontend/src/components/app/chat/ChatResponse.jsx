@@ -44,8 +44,8 @@ export default function ChatResponse({ hour, message, photo, likeType, msgId, li
     }
 
     return (
-        <div className=" w-full gap-x-3 h-auto py-1 flex">
-            <Avatar withBorder={false} className=" -top-3 bg-white p-[2px]" src={photo || avatar} alt="avatar" size="sm" />
+        <div className=" w-full gap-x-3 h-auto py-2 flex">
+            <Avatar withBorder={false} className=" -top-1 bg-white p-[2px]" src={photo || avatar} alt="avatar" size="sm" />
             <div onMouseLeave={() => setShowEmoji(false)} onMouseEnter={() => setShowEmoji(true)} className=" w-[80%] flex gap-2 items-center ">
                 <div className=" flex flex-col gap-y-1">
                     <div className=" before:shadow-[0_-25px_0_0_#fff] before:dark:shadow-[0_-25px_0_0_rgb(15,23,42)] before:content-[''] before:-left-2  before:absolute before:top-[25px] before:h-[15px] before:w-[50px] before:bg-transparent before:rounded-bl-[25px] relative w-auto max-w-max dark:bg-slate-900 dark:text-slate-300 bg-white flex flex-col text-start justify-start items-start px-2 pt-3 pb-1 md:px-2 rounded-lg ">

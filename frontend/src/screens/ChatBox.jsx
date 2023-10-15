@@ -18,7 +18,7 @@ export default function ChatBox() {
 
   const handleOpen = () => setOpen(!open);
 
-  const [menuChatOpen, setMenuChatOpen] = useState(false);
+  const [openChat, setOpenChat] = useState(false);
 
   const { userInfo } = useSelector((state) => state.auth);
   const [userChats, setUserChats] = useState([]);
@@ -33,23 +33,22 @@ export default function ChatBox() {
 
   }, [currentId, setUserChats]);
 
+  const handleOpenChat = () => setOpenChat(!openChat);
+
   return (
     <div>
       <AddNewChat handleOpen={handleOpen} open={open} />
-      <div className=" dark:border-gray-600/30 border flex flex-col justify-between items-center xl:flex-row relative w-[99.9%] h-screen rounded shadow-lg shadow-indigo-500/5 ">
-        <SideBar setChatId={setChatId} userChats={userChats} handleOpen={handleOpen} menuChatOpen={menuChatOpen} setMenuChatOpen={setMenuChatOpen} />
+      <div className=" dark:border-gray-600/30 border flex flex-col justify-between items-center lg:flex-row relative w-[99.9%] h-screen rounded shadow-lg shadow-indigo-500/5 ">
 
-        <Card className="bg-gray-300 bg-transparent !rounded-none relative !shadow-none xl:ml-[20rem] xl:w-[calc(100%-20rem)] w-full xl:absolute rounded-r rounded-l-none h-full top-0 overflow-auto">
-          <NavBar chatUser={chatId} chatName={chatId?.userId?.name} menuChatOpen={menuChatOpen} setMenuChatOpen={setMenuChatOpen} />
-          {chatId.length === 0 &&
-            <div className=" w-full h-full flex justify-center items-center">
-              Selection un contact à afficher
-            </div>
-          }
+        <SideBar openChat={openChat} handleOpenChat={handleOpenChat} setChatId={setChatId} userChats={userChats} handleOpen={handleOpen} />
 
-          {chatId.length != 0 && <MessageSection currentChatId={chatId.chatId} />}
-          {chatId.length != 0 && <SendMessage chatId={chatId.chatId} placeholder="Votre message" onSucces={() => { }} />}
+        <Card className={` bg-gray-300 bg-transparent !rounded-none relative !shadow-none lg:ml-[20rem] lg:w-[calc(100%-20rem)] w-full lg:absolute rounded-r rounded-l-none h-full top-0 overflow-auto`}>
+          <NavBar openChat={openChat} handleOpenChat={handleOpenChat} chatUser={chatId} chatName={chatId?.userId?.name} />
+
+          {chatId.length != 0 && <MessageSection openChat={openChat} currentChatId={chatId.chatId} />}
+          {chatId.length != 0 && <SendMessage openChat={openChat} chatId={chatId.chatId} placeholder="Votre message" onSucces={() => { }} />}
         </Card>
+
 
       </div>
 

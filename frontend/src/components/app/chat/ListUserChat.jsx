@@ -2,15 +2,16 @@ import PropTypes from "prop-types";
 import { Avatar, Typography } from "@material-tailwind/react";
 import avatar from "../../../img/avatar/avatar.png";
 
-function ContactChat({ user, setChatId }) {
+function ContactChat({ user, setChatId, handleOpenChat }) {
     const getCurrentChatId = localStorage.currentChatId && JSON.parse(localStorage.currentChatId)?.chatId;
 
     const saveCurrentChat = () => {
         setChatId(user);
+        handleOpenChat()
         localStorage.setItem('currentChatId', JSON.stringify(user));
     }
     return (
-        <div onClick={saveCurrentChat} className={`${getCurrentChatId === user.chatId ? "bg-blue-300 font-medium text-white " : "dark:hover:bg-slate-800 hover:bg-blue-gray-50/80"} cursor-pointer   !rounded-none p-2 flex gap-x-2 justify-start items-center `}>
+        <div onClick={saveCurrentChat} className={`${getCurrentChatId === user.chatId ? "bg-blue-800 font-medium text-white " : "dark:hover:bg-slate-800 hover:bg-blue-gray-50/80"} cursor-pointer   !rounded-none p-2 flex gap-x-2 justify-start items-center `}>
             <Avatar
                 size="sm"
                 className=" bg-white p-[2px] "
@@ -26,13 +27,14 @@ function ContactChat({ user, setChatId }) {
         </div>
     );
 }
-export default function ListUserChat({ activeSection, userChats, setChatId }) {
+export default function ListUserChat({ activeSection, userChats, setChatId, handleOpenChat }) {
 
     return <div className={`${activeSection != 3 && "hidden"} w-full h-[calc(100%-15rem)] custome-scroll-bar max-h-[calc(100%-15rem)] overflow-auto xl:overflow-hidden xl:hover:overflow-y-auto `}>
 
         {userChats && userChats.map(
             (user, id) => (
                 <ContactChat
+                    handleOpenChat={handleOpenChat}
                     user={user}
                     setChatId={setChatId}
                     key={id}

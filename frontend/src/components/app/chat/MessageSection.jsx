@@ -50,7 +50,7 @@ const SendAndReceivedMsg = ({ dates, currentUserId, likeType, setAllMessge }) =>
         </div>
     ))
 }
-export default function MessageSection({ currentChatId }) {
+export default function MessageSection({ currentChatId, openChat }) {
     const { userInfo } = useSelector((state) => state.auth);
     const currentUserId = userInfo._id;
     const messagesColumnRef = useRef(null); // Add this
@@ -79,7 +79,7 @@ export default function MessageSection({ currentChatId }) {
 
     }, []);
 
-    return <div ref={messagesColumnRef} className="chat-bg bg-gray-800/10 dark:bg-slate-800/60 md:px-5  custome-scroll-bar px-3 md:pt-2 pb-16 overflow-auto xl:overflow-hidden xl:hover:overflow-y-auto w-full h-full  ">
+    return <div ref={messagesColumnRef} className={`${openChat ? "block" : "hidden lg:block"} chat-bg bg-gray-800/10 dark:bg-slate-800/60 md:px-5  custome-scroll-bar px-3 md:pt-2 pb-16 overflow-auto xl:overflow-hidden xl:hover:overflow-y-auto w-full h-full  `}>
         {currentChatId && allMessge.map(({ _id, dates }) => {
             return (currentChatId === _id) &&
                 <SendAndReceivedMsg setAllMessge={setAllMessge} likeType={likeType} key={_id} currentUserId={currentUserId} dates={dates} />
