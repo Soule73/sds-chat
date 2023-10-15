@@ -1,13 +1,13 @@
 import PropTypes from "prop-types";
-
-import dateFormateHour from "../../../utils/chatLogique";
 import { useState } from "react";
 import { Avatar, Menu, MenuHandler, MenuItem, MenuList } from "@material-tailwind/react";
 import { FaceSmileIcon } from "@heroicons/react/24/solid";
-import { socket } from "../../../socket";
 import { useSelector } from "react-redux";
-import avatar from "../../../img/avatar/avatar.png";
 
+import { socket } from "../../../socket";
+import dateFormateHour from "../../../utils/chatLogique";
+
+import avatar from "../../../img/avatar/avatar.png";
 import love from "../../../img/emoji/love.gif";
 import like from "../../../img/emoji/like.gif";
 import wow from "../../../img/emoji/wow.gif";
@@ -77,7 +77,7 @@ export default function ChatYou({ hour, message, msgId, likeType, likes, totalLi
                 {likes.length > 0 && <div className="w-full flex items-center justify-start">
                     <Menu>
                         <MenuHandler>
-                            <div className="p-1 rounded-3xl flex items-center gap-1 w-max dark:bg-slate-900 dark:text-slate-300 bg-white cursor-pointer  justify-start">
+                            <div className="p-1 rounded-lg flex items-center gap-1 w-max dark:bg-slate-900 dark:text-slate-300 bg-white cursor-pointer  justify-start">
                                 <span className=" text-xs">{Number(totalLikes) > 0 && totalLikes} </span>
                                 <div className=" flex">
                                     {likes.length > 0 && likes.map(({ likeType }, i) => (

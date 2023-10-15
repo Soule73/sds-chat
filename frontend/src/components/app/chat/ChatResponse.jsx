@@ -59,7 +59,7 @@ export default function ChatResponse({ hour, message, photo, likeType, msgId, li
                     {likes.length > 0 && <div className="w-full flex items-center justify-end">
                         <Menu>
                             <MenuHandler>
-                                <div className=" p-1 rounded-3xl flex items-center gap-1 dark:bg-slate-900 dark:text-slate-300 bg-white w-max cursor-pointer ">
+                                <div className=" p-1 rounded-lg flex items-center gap-1 dark:bg-slate-900 dark:text-slate-300 bg-white w-max cursor-pointer ">
                                     <span className=" text-xs">{Number(totalLikes) > 0 && totalLikes} </span>
                                     <div className=" flex">
                                         {likes.length > 0 && likes.map(({ likeType }, i) => (

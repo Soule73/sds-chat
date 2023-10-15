@@ -11,7 +11,7 @@ function ContactChat({ user, setChatId, handleOpenChat }) {
         localStorage.setItem('currentChatId', JSON.stringify(user));
     }
     return (
-        <div onClick={saveCurrentChat} className={`${getCurrentChatId === user.chatId ? "bg-blue-800 font-medium text-white " : "dark:hover:bg-slate-800 hover:bg-blue-gray-50/80"} cursor-pointer   !rounded-none p-2 flex gap-x-2 justify-start items-center `}>
+        <div onClick={saveCurrentChat} className={`${getCurrentChatId === user.chatId ? "lg:bg-blue-800 lg:font-medium lg:text-white " : ""} dark:hover:bg-slate-800  hover:bg-blue-gray-50/80 cursor-pointer   !rounded-none p-2 flex gap-x-2 justify-start items-center `}>
             <Avatar
                 size="sm"
                 className=" bg-white p-[2px] "
