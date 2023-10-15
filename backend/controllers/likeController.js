@@ -3,72 +3,74 @@ import LikeType from "../models/likeTypeModel.js";
 
 // Fonction récursive pour récupérer les commentaires et leurs sous-commentaires
 
-const getAllLikeTypeSocket = async () => {
+const getAllLikeType = async (req, res) => {
   try {
     const liekType = await LikeType.find({});
-    return liekType;
+    return res.status(200).json(liekType);
   } catch (error) {
     console.error("Erreur lors de la récupération des like :", error);
-    return { message: "Erreur lors de la récupération des like" };
+    return res
+      .status(200)
+      .json({ message: "Erreur lors de la récupération des like" });
   }
 };
 
-const createLikeSocket = async (ref_id, like_id, user_id) => {
-  const like = await Like.findOne({ ref_id: ref_id, user_id: user_id });
+const createLikeSocket = async (messageId, likeTypeId, userId) => {
+  const like = await Like.findOne({ messageId: messageId, userId: userId });
   if (like) {
-    if (like.like_id.toString() === like_id) {
+    if (like.likeTypeId.toString() === likeTypeId) {
       await Like.findByIdAndRemove(like._id);
     } else {
-      await Like.findByIdAndUpdate(like._id, { like_id: like_id });
+      await Like.findByIdAndUpdate(like._id, { likeTypeId: likeTypeId });
     }
     return;
   } else {
     try {
-      const nouveauCommentaire = new Like({
-        user_id,
-        like_id,
-        ref_id,
+      const newMessageLike = new Like({
+        userId,
+        likeTypeId,
+        messageId,
       });
 
-      await nouveauCommentaire.save();
-      return nouveauCommentaire;
+      await newMessageLike.save();
+      return newMessageLike;
     } catch (error) {
       console.error("Erreur lors de l'ajout du like :", error);
       return { message: "Erreur lors de l'ajout du like" };
     }
   }
 };
-const createLikeType = async (req, res) => {
-  try {
-    await LikeType.insertMany([
-      {
-        type: "like",
-      },
-      {
-        type: "adore",
-      },
-      {
-        type: "united",
-      },
-      {
-        type: "haha",
-      },
-      {
-        type: "wow",
-      },
-      {
-        type: "sad",
-      },
-      {
-        type: "angry",
-      },
-    ]);
+// const createLikeType = async (req, res) => {
+//   try {
+//     await LikeType.insertMany([
+//       {
+//         type: "like",
+//       },
+//       {
+//         type: "adore",
+//       },
+//       {
+//         type: "united",
+//       },
+//       {
+//         type: "haha",
+//       },
+//       {
+//         type: "wow",
+//       },
+//       {
+//         type: "sad",
+//       },
+//       {
+//         type: "angry",
+//       },
+//     ]);
 
-    res.json("create all type emoji");
-  } catch (error) {
-    console.error("Erreur lors de l'ajout du like :", error);
-    res.status(500).json({ message: "Erreur lors de l'ajout du like" });
-  }
-};
+//     res.json("create all type emoji");
+//   } catch (error) {
+//     console.error("Erreur lors de l'ajout du like :", error);
+//     res.status(500).json({ message: "Erreur lors de l'ajout du like" });
+//   }
+// };
 
-export { getAllLikeTypeSocket, createLikeSocket, createLikeType };
+export { getAllLikeType, createLikeSocket };

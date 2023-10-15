@@ -5,7 +5,7 @@ import Like from "../models/likeModel.js";
 async function getCommentairesRecursif(commentaireId) {
   const commentaire = await Commentaire.findById(commentaireId)
     .populate("parent_id")
-    .populate("user_id", "name email");
+    .populate("userId", "name email");
   if (!commentaire) {
     return null;
   }
@@ -31,7 +31,7 @@ async function getCommentairesRecursif(commentaireId) {
 const getAllCommentSocket = async () => {
   try {
     const commentaires = await Commentaire.find({ parent_id: null }).populate(
-      "user_id",
+      "userId",
       "name email"
     );
     const commentairesRecursif = await Promise.all(
@@ -52,7 +52,7 @@ const getFindCommentSocket = async (id) => {
   try {
     const commentaires = await Commentaire.find({
       _id: id,
-    }).populate("user_id", "name email");
+    }).populate("userId", "name email");
     const commentairesRecursif = await Promise.all(
       commentaires.map((commentaire) =>
         getCommentairesRecursif(commentaire._id)
@@ -65,12 +65,12 @@ const getFindCommentSocket = async (id) => {
   }
 };
 
-const createCommentSocket = async (parent_id, user_id, content) => {
+const createCommentSocket = async (parent_id, userId, content) => {
   try {
     const nouveauCommentaire = new Commentaire({
       content,
       parent_id,
-      user_id,
+      userId,
     });
     await nouveauCommentaire.save();
     return nouveauCommentaire;

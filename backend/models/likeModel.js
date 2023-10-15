@@ -1,16 +1,17 @@
 import { Schema, model } from "mongoose";
 
 const likeSchema = new Schema({
-  user_id: {
+  userId: {
     type: Schema.Types.ObjectId,
     ref: "User",
   },
-  like_id: {
+  likeTypeId: {
     type: Schema.Types.ObjectId,
     ref: "LikeType",
   },
-  ref_id: {
+  messageId: {
     type: Schema.Types.ObjectId,
+    ref: "Message",
     required: true,
   },
 });

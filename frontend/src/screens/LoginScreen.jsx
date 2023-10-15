@@ -6,7 +6,6 @@ import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
 import Loader from '../components/Loader';
 import { Button, Card, Input } from '@material-tailwind/react';
-
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,7 +14,7 @@ const LoginScreen = () => {
   const navigate = useNavigate();
 
   const [login, { isLoading }] = useLoginMutation();
-
+  const { theme } = localStorage;
   const { userInfo } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -31,50 +30,59 @@ const LoginScreen = () => {
       dispatch(setCredentials({ ...res }));
       navigate('/');
     } catch (err) {
-      toast.error(err?.data?.message || err.error);
+      toast.error(err?.data?.message || err.error, { theme: theme === "dark" ? "dark" : "light" });
     }
   };
 
   return (
-    <Card className=' max-w-xl mx-auto p-5 mt-24'>
-      <h1>Sign In</h1>
+    <div className={`bg-[url(./img/background.png)] dark:bg-[url(./img/GalaxyBackground.png)] bg-no-repeat bg-cover min-h-screen absolute w-full justify-center items-center flex top-0`}>
 
-      <form onSubmit={submitHandler}>
-        <div className='my-2' >
-          <Input
-            label='Email Address'
-            type='email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></Input>
+      <Card className=' w-max h-max md:min-w-[30rem] min-w-full max-w-xl dark:bg-slate-800 dark:text-slate-300 p-5'>
+        <h1>Se connecter</h1>
+
+        <form onSubmit={submitHandler}>
+          <div className='my-2' >
+            <Input
+              label='E-mail'
+              type='email'
+              color='blue'
+              value={email}
+              className='dark:text-slate-300'
+              onChange={(e) => setEmail(e.target.value)}
+            ></Input>
+          </div>
+
+          <div className='my-2'>
+            <Input
+              label='Mot de passe'
+              type='password'
+              color='blue'
+              className='dark:text-slate-300'
+
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></Input>
+          </div>
+
+          <Button
+            disabled={isLoading}
+            type='submit'
+            className='mt-3'
+            color='blue'
+          >
+            Se connecter
+          </Button>
+        </form>
+
+        {isLoading && <Loader />}
+
+        <div className='py-3'>
+          <div>
+            Pas de compte ? <Link to='/register' className=' text-blue-600'>{"S'inscrire"}</Link>
+          </div>
         </div>
-
-        <div className='my-2'>
-          <Input
-            label='Password'
-            type='password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></Input>
-        </div>
-
-        <Button
-          disabled={isLoading}
-          type='submit'
-          className='mt-3'
-        >
-          Sign In
-        </Button>
-      </form>
-
-      {isLoading && <Loader />}
-
-      <div className='py-3'>
-        <div>
-          New Customer? <Link to='/register' className=' text-blue-600'>Register</Link>
-        </div>
-      </div>
-    </Card>
+      </Card>
+    </div>
   );
 };
 

@@ -5,16 +5,20 @@ const userSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "Nom d'utilisateur requis"],
     },
     email: {
       type: String,
-      required: true,
-      unique: true,
+      required: [true, "E-mail requis"],
+      unique: [true, "E-mail existe déjà"],
     },
     password: {
       type: String,
-      required: true,
+      required: [true, "Mot de passe requis"],
+    },
+    pic: {
+      type: String,
+      default: null,
     },
   },
   {
@@ -34,7 +38,7 @@ userSchema.pre("save", async function (next) {
   }
 
   const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
+  this.password = bcrypt.hash(this.password, salt);
 });
 
 const User = mongoose.model("User", userSchema);

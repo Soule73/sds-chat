@@ -1,10 +1,12 @@
-import asyncHandler from 'express-async-handler';
-import User from '../models/userModel.js';
-import generateToken from '../utils/generateToken.js';
+import asyncHandler from "express-async-handler";
+import User from "../models/userModel.js";
+import generateToken from "../utils/generateToken.js";
 
-// @desc    Auth user & get token
-// @route   POST /api/users/auth
-// @access  Public
+/**
+ * @desc    Auth user & get token
+ * @route   POST /api/users/auth
+ * @access  Public
+ */
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -20,7 +22,7 @@ const authUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error('Invalid email or password');
+    throw new Error("E-mail ou mot de passe invalide");
   }
 });
 
@@ -34,7 +36,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (userExists) {
     res.status(400);
-    throw new Error('User already exists');
+    throw new Error("L'utilisateur existe déjà");
   }
 
   const user = await User.create({
@@ -53,7 +55,7 @@ const registerUser = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error('Invalid user data');
+    throw new Error("Vos Données sont invalides");
   }
 });
 
@@ -61,11 +63,11 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users/logout
 // @access  Public
 const logoutUser = (req, res) => {
-  res.cookie('jwt', '', {
+  res.cookie("jwt", "", {
     httpOnly: true,
     expires: new Date(0),
   });
-  res.status(200).json({ message: 'Logged out successfully' });
+  res.status(200).json({ message: "Déconnecté avec succès" });
 };
 
 // @desc    Get user profile
@@ -82,7 +84,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error("Utilisateur non trouvé");
   }
 });
 
@@ -109,7 +111,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(404);
-    throw new Error('User not found');
+    throw new Error("Utilisateur non trouvé");
   }
 });
 export {

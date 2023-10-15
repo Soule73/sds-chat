@@ -20,6 +20,7 @@ const RegisterScreen = () => {
   const [register, { isLoading }] = useRegisterMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
+  const { theme } = localStorage;
 
   useEffect(() => {
     if (userInfo) {
@@ -38,62 +39,74 @@ const RegisterScreen = () => {
         dispatch(setCredentials({ ...res }));
         navigate('/');
       } catch (err) {
-        toast.error(err?.data?.message || err.error);
+        console.log(err?.data?.message || err.error)
+        toast.error(err?.data?.message || err.error, { theme: theme === "dark" ? "dark" : "light" });
       }
     }
   };
   return (
-    <Card className=' max-w-xl mx-auto p-5 mt-24'>
-      <h1>Register</h1>
-      <form onSubmit={submitHandler}>
-        <div className='my-2'>
-          <Input
-            label='Name'
-            type='name'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          ></Input>
-        </div>
+    <div className={`bg-[url(./img/background.png)] dark:bg-[url(./img/GalaxyBackground.png)] bg-no-repeat bg-cover min-h-screen absolute w-full justify-center items-center flex top-0`}>
 
-        <div className='my-2'>
-          <Input
-            label='Email Address'
-            type='email'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></Input>
-        </div>
+      <Card className=' dark:text-slate-300 dark:bg-slate-800 max-w-xl min-w-full md:min-w-[30rem] p-5 mt-24'>
+        <h1>Inscription</h1>
+        <form onSubmit={submitHandler}>
+          <div className='my-2'>
+            <Input
+              label='Nom'
+              type='name'
+              color='blue'
+              className=' dark:text-slate-300'
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            ></Input>
+          </div>
 
-        <div className='my-2'>
-          <Input
-            label='Password'
-            type='password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></Input>
-        </div>
-        <div className='my-2'>
-          <Input
-            label='Confirm Password'
-            type='password'
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          ></Input>
-        </div>
+          <div className='my-2'>
+            <Input
+              label='E-mail'
+              type='email'
+              color='blue'
+              className=' dark:text-slate-300'
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></Input>
+          </div>
 
-        <Button type='submit' className='mt-3'>
-          Register
-        </Button>
+          <div className='my-2'>
+            <Input
+              label='Mot de passe'
+              type='password'
+              color='blue'
+              className=' dark:text-slate-300'
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></Input>
+          </div>
+          <div className='my-2'>
+            <Input
+              label='Confirmer le mot de passe'
+              type='password'
+              color='blue'
+              className=' dark:text-slate-300'
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            ></Input>
+          </div>
 
-        {isLoading && <Loader />}
-      </form>
+          <Button type='submit' color='blue' className='mt-3'>
+            Inscription
+          </Button>
 
-      <div className='py-3'>
-        <div>
-          Already have an account? <Link to={`/login`} className=' text-blue-600'>Login</Link>
+          {isLoading && <Loader />}
+        </form>
+
+        <div className='py-3'>
+          <div>
+            Déjà inscrit(e) ? <Link to={`/login`} className=' text-blue-600'>Se connecter</Link>
+          </div>
         </div>
-      </div>
-    </Card>
+      </Card>
+    </div>
   );
 };
 

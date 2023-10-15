@@ -7,15 +7,15 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import userRoutes from "./routes/userRoutes.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
+
+import chatRoutes from "./routes/chatRoutes.js";
 import {
-  createCommentSocket,
-  getAllCommentSocket,
-  getFindCommentSocket,
-} from "./controllers/commentController.js";
-import {
-  createLikeSocket,
-  getAllLikeTypeSocket,
-} from "./controllers/likeController.js";
+  createMessageSocket,
+  getAllMessageSocket,
+} from "./controllers/messageController.js";
+import likeRoutes from "./routes/likeRoutes.js";
+import { createLikeSocket } from "./controllers/likeController.js";
+// import chatRoutes from "./routes/chatRoutes.js";
 
 dotenv.config();
 
@@ -28,12 +28,9 @@ connectDB();
 
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.CLIENT_URL,
+    origin: [process.env.CLIENT_URL, "http://192.168.192.231:3000/"],
     credentials: true,
   },
-  addTrailingSlash: false,
-  transports: ["websocket"],
-  path: "/api/socket",
 });
 
 app.use(express.json());
@@ -42,6 +39,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use("/api/users", userRoutes);
+app.use("/api/chat", chatRoutes);
+app.use("/api/like", likeRoutes);
 
 if (process.env.NODE_ENV === "production") {
   const __dirname = path.resolve();
@@ -63,26 +62,24 @@ app.use(errorHandler);
 io.on("connection", (socket) => {
   console.log(`Socket ${socket.id} connected`);
 
-  socket.on("getAllComments", async () => {
-    io.emit("allComments", await getAllCommentSocket());
-  });
-  socket.on("getLikeType", async () => {
-    io.emit("likeType", await getAllLikeTypeSocket());
-  });
-  socket.on("getFindComment", async ({ id }) => {
-    io.emit("findComment", await getFindCommentSocket(id));
-  });
-  socket.on("createComment", async ({ parent_id, user_id, content }) => {
-    await createCommentSocket(parent_id, user_id, content);
-    io.emit("commentSucces", "succes");
-  });
-  socket.on("createLikeComment", async ({ ref_id, like_id, user_id }) => {
-    await createLikeSocket(ref_id, like_id, user_id);
-    io.emit("likeComment", "succes");
+  socket.on("createLikeComment", async ({ messageId, likeTypeId, userId }) => {
+    await createLikeSocket(messageId, likeTypeId, userId);
+
+    const userAllMessage = await getAllMessageSocket(userId);
+    io.emit("likeComment", userAllMessage);
   });
 
-  socket.on("sendMessage", (message) => {
-    io.emit("message", message);
+  // new socket on SDS CHAT
+  socket.on("getUserAllMessage", async ({ userId }) => {
+    const userAllMessage = await getAllMessageSocket(userId);
+    socket.emit("userAllMessage", userAllMessage);
+  });
+
+  socket.on("sendMessage", async ({ parentId, userId, chatId, content }) => {
+    await createMessageSocket(parentId, userId, chatId, content);
+    const userAllMessage = await getAllMessageSocket(userId);
+
+    io.emit("sendSucces", userAllMessage);
   });
 
   socket.on("disconnect", () => {
