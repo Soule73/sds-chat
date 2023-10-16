@@ -18,8 +18,6 @@ import { useState } from "react";
 
 export default function ChatResponse({ hour, message, photo, likeType, msgId, likes, totalLikes, setAllMessge }) {
 
-    // console.log(likes)
-
     const { userInfo } = useSelector((state) => state.auth);
     const [showEmoji, setShowEmoji] = useState(false);
     const likeTypeAll = {
@@ -32,7 +30,6 @@ export default function ChatResponse({ hour, message, photo, likeType, msgId, li
         "angry": { text: "En colére", color: "text-red-800", emoji: angry },
     }
     const likeForm = async (likeId) => {
-        // console.log(msgId, likeId, userInfo._id)
 
         socket.emit('createLikeComment', {
             messageId: msgId,
@@ -43,12 +40,16 @@ export default function ChatResponse({ hour, message, photo, likeType, msgId, li
         socket.on('likeComment', (e) => setAllMessge(e))
     }
 
+
+
     return (
         <div className=" w-full gap-x-3 h-auto py-2 flex">
             <Avatar withBorder={false} className=" -top-1 bg-white p-[2px]" src={photo || avatar} alt="avatar" size="sm" />
             <div onMouseLeave={() => setShowEmoji(false)} onMouseEnter={() => setShowEmoji(true)} className=" w-[80%] flex gap-2 items-center ">
                 <div className=" flex flex-col gap-y-1">
-                    <div className=" before:shadow-[0_-25px_0_0_#fff] before:dark:shadow-[0_-25px_0_0_rgb(15,23,42)] before:content-[''] before:-left-2  before:absolute before:top-[25px] before:h-[15px] before:w-[50px] before:bg-transparent before:rounded-bl-[25px] relative w-auto max-w-max dark:bg-slate-900 dark:text-slate-300 bg-white flex flex-col text-start justify-start items-start px-2 pt-3 pb-1 md:px-2 rounded-lg ">
+                    <div
+                        // onContextMenu={(e) => { e.preventDefault(); console.log(e) }}
+                        className=" before:shadow-[0_-25px_0_0_#fff] before:dark:shadow-[0_-25px_0_0_rgb(15,23,42)] before:content-[''] before:-left-2  before:absolute before:top-[25px] before:h-[15px] before:w-[50px] before:bg-transparent before:rounded-bl-[25px] relative w-auto max-w-max dark:bg-slate-900 dark:text-slate-300 bg-white flex flex-col text-start justify-start items-start px-2 pt-3 pb-1 md:px-2 rounded-lg ">
                         <div>
                             <p>{message}</p>
                             <p className=" w-full  text-xs flex justify-end items-end ">
@@ -63,7 +64,7 @@ export default function ChatResponse({ hour, message, photo, likeType, msgId, li
                                     <span className=" text-xs">{Number(totalLikes) > 0 && totalLikes} </span>
                                     <div className=" flex">
                                         {likes.length > 0 && likes.map(({ likeType }, i) => (
-                                            <img style={{ zIndex: 6 - i, marginLeft: i != 0 && "-5px" }} key={i} className={` rounded-full p-[1px] dark:bg-slate-800 w-5`} src={likeTypeAll[likeType].emoji} alt="emoji" />
+                                            <img style={{ zIndex: 6 - i, marginLeft: i !== 0 && "-5px" }} key={i} className={` rounded-full p-[1px] dark:bg-slate-800 w-5`} src={likeTypeAll[likeType].emoji} alt="emoji" />
                                         ))}
                                     </div>
                                 </div>

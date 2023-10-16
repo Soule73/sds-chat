@@ -87,7 +87,7 @@ const CONST_RECENTS_CHAT = [
     },
 ];
 export default function ListRecentChat({ activeSection }) {
-    return <div className={`${activeSection != 1 && "hidden"} w-full h-[calc(100%-15rem)] custome-scroll-bar max-h-[calc(100%-15rem)] overflow-auto xl:overflow-hidden xl:hover:overflow-y-auto `}>
+    return <div className={`${activeSection !== 1 && "hidden"} w-full h-[calc(100%-15rem)] custome-scroll-bar max-h-[calc(100%-15rem)] overflow-auto xl:overflow-hidden xl:hover:overflow-y-auto `}>
         <Menu>
             <MenuHandler>
                 <div className="sticky top-0 bg-white dark:bg-slate-900 w-full z-[2] cursor-pointer max-w-max px-3 pt-3 flex justify-start items-center ">

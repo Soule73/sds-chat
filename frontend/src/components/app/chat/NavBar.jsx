@@ -14,7 +14,7 @@ export default function NavBar({ chatUser, handleOpenChat, openChat }) {
         { icon: UserPlusIcon, title: "Ajouter un utilisateur" },
     ]
 
-    return <div className={` overflow-x-hidden py-1 dark:bg-slate-900 px-3 bg-white z-20 lg:pl-5 ${openChat ? "flex" : "hidden lg:flex"} justify-between w-full top-0 `}>
+    return <div className={` overflow-x-hidden py-1 dark:bg-slate-900 px-3 bg-white z-20 lg:pl-5 ${openChat ? "flex" : "hidden lg:flex"} lg:shadow lg:min-h-[3.5rem] justify-between w-full top-0 `}>
         <div className="flex text-ellipsis justify-start items-center gap-2 ">
             <ArrowLeftIcon
                 onClick={handleOpenChat}
@@ -55,4 +55,5 @@ export default function NavBar({ chatUser, handleOpenChat, openChat }) {
 NavBar.propTypes = {
     chatUser: PropTypes.object.isRequired,
     handleOpenChat: PropTypes.func.isRequired,
+    openChat: PropTypes.bool.isRequired
 }

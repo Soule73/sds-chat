@@ -4,8 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLoginMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
-import Loader from '../components/Loader';
-import { Button, Card, Input } from '@material-tailwind/react';
+import { Button, Card, Input, Spinner } from '@material-tailwind/react';
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -64,18 +63,13 @@ const LoginScreen = () => {
             ></Input>
           </div>
 
-          <Button
-            disabled={isLoading}
-            type='submit'
-            className='mt-3'
-            color='blue'
-          >
-            Se connecter
+          <Button color='blue'
+            type='submit' className='flex gap-2 items-center'>
+
+            {isLoading ? "En cours..." : "Se connecter"}
+            {isLoading && <Spinner />}
           </Button>
         </form>
-
-        {isLoading && <Loader />}
-
         <div className='py-3'>
           <div>
             Pas de compte ? <Link to='/register' className=' text-blue-600'>{"S'inscrire"}</Link>

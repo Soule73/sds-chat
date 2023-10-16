@@ -88,6 +88,8 @@ export default function MessageSection({ currentChatId, openChat }) {
 }
 
 MessageSection.propTypes = {
-    currentChatId: PropTypes.string
+    currentChatId: PropTypes.string,
+    openChat: PropTypes.bool.isRequired
+
 
 }

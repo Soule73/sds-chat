@@ -1,10 +1,9 @@
 import { BellIcon, ChatBubbleLeftRightIcon, ChevronDownIcon, EllipsisHorizontalIcon, MagnifyingGlassIcon, PencilSquareIcon, PhoneIcon, UserIcon, VideoCameraIcon } from "@heroicons/react/24/outline";
 import { Avatar, Badge, Card, Menu, MenuHandler, MenuItem, MenuList } from "@material-tailwind/react";
 import ChatBoxSideIcon from "./ChatBoxSideIcon";
-import SwitcherDarkMode from "../../../theme/Switcher";
 
 import avatar from "../../../img/avatar/avatar.png";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../../slices/usersApiSlice";
@@ -21,9 +20,8 @@ const CONST_CHAT_BOX_SIDE_BAR_MENU_ITEM = [
     { id: 4, name: "Notifications", icon: BellIcon },
 ];
 export default function SideBar({
-    handleOpenChat,
-    openChat,
-    handleOpen, userChats, setChatId }) {
+    handleOpenChat, handleOpenProfileModal,
+    openChat, userChats, setChatId }) {
 
     const { userInfo } = useSelector((state) => state.auth);
 
@@ -77,39 +75,23 @@ export default function SideBar({
                                 <EllipsisHorizontalIcon className=" cursor-pointer w-6 h-6 " />
                             </MenuHandler>
                             <MenuList className=" dark:bg-slate-800 dark:!border-gray-600/30">
-                                <div className=" dark:text-slate-100 border-b dark:border-gray-600/30 border-gray-200 pb-1 ">
-                                    {[
-                                        { name: "Setting" },
-                                        { name: "Help & Feedback" },
-                                        { name: "Enable Split View Mode" },
-                                        { name: "Keyboard Shorcuts" },
-                                    ].map(({ name }, i) => {
-                                        return (
-                                            <MenuItem
-                                                key={"horizontal_menu_" + i}
-                                                className=" dark:hover:!bg-slate-900 focus:bg-slate-900 dark:hover:text-slate-100"
-                                            >
-                                                {name}
-                                            </MenuItem>
+                                {[
+                                    { name: "Parametre", onclick: handleOpenProfileModal },
+                                    { name: "Help & Feedback", onclick: () => { } },
+                                    { name: "Se déconnecter", onclick: logoutHandler },
+                                ].map(({ name, onclick }, i) => {
+                                    return (
+                                        <MenuItem
+                                            onClick={onclick}
+                                            key={"horizontal_menu_" + i}
+                                            className=" hover:!bg-blue-gray-50  dark:hover:!bg-slate-900 focus:bg-slate-900 dark:text-slate-50 dark:hover:text-slate-100"
+                                        >
+                                            {name}
+                                        </MenuItem>
 
-                                        );
-                                    })}
+                                    );
+                                })}
 
-                                </div>
-                                <div className=" dark:text-slate-100 dark:border-gray-600/30 border-gray-200 pt-1 ">
-
-                                    <MenuItem
-                                        onClick={logoutHandler}
-                                        className=" hover:!bg-blue-gray-50  dark:hover:!bg-slate-900 focus:bg-slate-900 dark:hover:text-slate-100"
-                                    >
-                                        Se déconnecter
-                                    </MenuItem>
-                                    <MenuItem
-                                        className="hover:!bg-blue-gray-50  dark:hover:!bg-slate-900 focus:bg-slate-900 dark:hover:text-slate-100"
-                                    >
-                                        <SwitcherDarkMode />
-                                    </MenuItem>
-                                </div>
                             </MenuList>
                         </Menu>
                     </div>
@@ -184,7 +166,7 @@ export default function SideBar({
                                 {[
                                     { name: "New Group Chat", onclick: () => { } },
                                     { name: "New Moderated Chat", onclick: () => { } },
-                                    { name: "New Chat", onclick: handleOpen },
+                                    { name: "New Chat", onclick: () => { } },
                                     { name: "New Private Chat", onclick: () => { } },
                                 ].map(({ name, onclick }, i) => {
                                     return (
@@ -211,7 +193,10 @@ export default function SideBar({
 
 SideBar.propTypes = {
     setChatId: PropTypes.func.isRequired,
-    handleOpen: PropTypes.func.isRequired,
     userChats: PropTypes.array.isRequired,
+    openChat: PropTypes.bool.isRequired,
+    handleOpenChat: PropTypes.func.isRequired,
+    handleOpenProfileModal: PropTypes.func.isRequired,
+
 }
 

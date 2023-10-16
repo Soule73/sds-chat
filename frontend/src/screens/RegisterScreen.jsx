@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import Loader from '../components/Loader';
 // import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRegisterMutation } from '../slices/usersApiSlice';
 import { setCredentials } from '../slices/authSlice';
 import { toast } from 'react-toastify';
-import { Button, Card, Input } from '@material-tailwind/react';
+import { Button, Card, Input, Spinner } from '@material-tailwind/react';
 
 const RegisterScreen = () => {
   const [name, setName] = useState('');
@@ -92,12 +91,12 @@ const RegisterScreen = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
             ></Input>
           </div>
+          <Button color='blue'
+            type='submit' className='flex gap-2 items-center'>
 
-          <Button type='submit' color='blue' className='mt-3'>
-            Inscription
+            {isLoading ? "En cours..." : "Inscription"}
+            {isLoading && <Spinner />}
           </Button>
-
-          {isLoading && <Loader />}
         </form>
 
         <div className='py-3'>

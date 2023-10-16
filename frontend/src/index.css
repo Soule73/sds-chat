@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 .custome-scroll-bar::-webkit-scrollbar {
-    width: 0px;
-    height: 0px;
+    width: 0;
+    height: 0;
 }
 
 .chat-bg {

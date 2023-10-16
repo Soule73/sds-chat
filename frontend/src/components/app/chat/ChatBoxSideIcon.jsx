@@ -33,4 +33,5 @@ ChatBoxSideIcon.propTypes = {
     icon: PropTypes.object.isRequired,
     active: PropTypes.bool.isRequired,
     onClick: PropTypes.func,
+    title: PropTypes.string
 }

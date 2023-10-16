@@ -81,7 +81,7 @@ export default function ChatYou({ hour, message, msgId, likeType, likes, totalLi
                                 <span className=" text-xs">{Number(totalLikes) > 0 && totalLikes} </span>
                                 <div className=" flex">
                                     {likes.length > 0 && likes.map(({ likeType }, i) => (
-                                        <img style={{ zIndex: 6 - i, marginLeft: i != 0 && "-5px" }} key={i} className={` rounded-full p-[1px] bg-slate-100 w-5`} src={likeTypeAll[likeType].emoji} alt="emoji" />
+                                        <img style={{ zIndex: 6 - i, marginLeft: i !== 0 && "-5px" }} key={i} className={` rounded-full p-[1px] bg-slate-100 w-5`} src={likeTypeAll[likeType].emoji} alt="emoji" />
                                     ))}
                                 </div>
                             </div>

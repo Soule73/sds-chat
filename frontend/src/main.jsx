@@ -12,7 +12,6 @@ import store from './store';
 import { Provider } from 'react-redux';
 import LoginScreen from './screens/LoginScreen.jsx';
 import RegisterScreen from './screens/RegisterScreen.jsx';
-import ProfileScreen from './screens/ProfileScreen.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 import { ThemeProvider } from '@material-tailwind/react';
 import { registerSW } from 'virtual:pwa-register'
@@ -53,7 +52,6 @@ const router = createBrowserRouter(
       <Route path='/register' element={<RegisterScreen />} />
       <Route path='' element={<PrivateRoute />}>
         <Route index={true} path='/' element={<ChatBox />} />
-        <Route path='/profile' element={<ProfileScreen />} />
       </Route>
     </Route>
   )
