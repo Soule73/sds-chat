@@ -24,11 +24,11 @@ const port = process.env.PORT || 5000;
 const app = express();
 const httpServer = createServer(app);
 
-connectDB();
+connectDB().then(r => {console.log(r)});
 
 const io = new Server(httpServer, {
   cors: {
-    origin: [process.env.CLIENT_URL, "http://192.168.192.231:3000/"],
+    origin: process.env.CLIENT_URL,
     credentials: true,
   },
 });

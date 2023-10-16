@@ -29,7 +29,7 @@ function ContactChat({ user, setChatId, handleOpenChat }) {
 }
 export default function ListUserChat({ activeSection, userChats, setChatId, handleOpenChat }) {
 
-    return <div className={`${activeSection !== 3 && "hidden"} w-full h-[calc(100%-15rem)] custome-scroll-bar max-h-[calc(100%-15rem)] overflow-auto xl:overflow-hidden xl:hover:overflow-y-auto `}>
+    return <div className={`${activeSection !== 3 && "hidden"} w-full h-[calc(100%-10rem)] custome-scroll-bar max-h-[calc(100%-10rem)] overflow-auto xl:overflow-hidden xl:hover:overflow-y-auto `}>
 
         {userChats && userChats.map(
             (user, id) => (
