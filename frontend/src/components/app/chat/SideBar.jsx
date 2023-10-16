@@ -2,7 +2,7 @@ import { BellIcon, EllipsisVerticalIcon, ChatBubbleLeftRightIcon, ChevronDownIco
 import { Card, Menu, MenuHandler, MenuItem, MenuList } from "@material-tailwind/react";
 import ChatBoxSideIcon from "./ChatBoxSideIcon";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../../slices/usersApiSlice";
@@ -10,6 +10,7 @@ import { logout } from "../../../slices/authSlice";
 import ListRecentChat from "./ListRecentChat";
 import ListUserChat from "./ListUserChat";
 import PropTypes from "prop-types";
+import { useSwipeable } from "react-swipeable";
 
 
 const CONST_CHAT_BOX_SIDE_BAR_MENU_ITEM = [
@@ -27,9 +28,15 @@ export default function SideBar({
     const navigate = useNavigate();
 
     const saveActiveSection = (id) => {
-        setActiveSection(id)
-        localStorage.setItem("sideBarActiveSection", id)
+        if (0 < id && id < 5) {
+            setActiveSection(id)
+            localStorage.setItem("sideBarActiveSection", id)
+        }
     }
+    const handlers = useSwipeable({
+        onSwipedLeft: () => saveActiveSection(activeSection + 1),
+        onSwipedRight: () => saveActiveSection(activeSection - 1),
+    });
 
     const [logoutApiCall] = useLogoutMutation();
 
@@ -47,7 +54,20 @@ export default function SideBar({
         }
     };
 
+
+    // setup ref for your usage
+    const myRef = useRef();
+
+    const refPassthrough = (el) => {
+        // call useSwipeable ref prop with el
+        handlers.ref(el);
+
+        // set myRef el so you can access it yourself
+        myRef.current = el;
+    }
+
     return <Card
+        ref={refPassthrough}
         className={`${!openChat ? "block" : "hidden lg:block"} border-r border-r-gray-200 lg:block z-10 !shadow-none absolute !min-h-full !rounded-l w-full bg-black/10 bg-white dark:bg-slate-900 dark:border-r-gray-600/30 lg:!w-80 !h-full `}
     >
         {/* <div className=" !rounded-l w-full !h-full  "> */}

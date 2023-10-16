@@ -23,6 +23,7 @@
     "http": "^0.0.1-security",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.1.0",
+    "react-swipeable": "^7.0.1",
     "socket.io": "^4.7.2"
   },
   "devDependencies": {
