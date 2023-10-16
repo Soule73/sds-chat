@@ -48,7 +48,7 @@ export default function SideBar({
     };
 
     return <Card
-        className={`${!openChat ? "block" : "hidden lg:block"} lg:block z-10 !shadow-none absolute !min-h-full !rounded-l w-full bg-black/10 lg:bg-transparent lg:!w-80 !h-full `}
+        className={`${!openChat ? "block" : "hidden lg:block"} lg:block z-10 !shadow-none absolute !min-h-full !rounded-l w-full bg-black/10 bg-white lg:!w-80 !h-full `}
     >
         {/* <div className="border-r border-r-gray-200 !rounded-l w-full !h-full bg-white dark:bg-slate-900 dark:border-r-gray-600/30 "> */}
         <div className=" pt-2 w-full h-40 grid gap-2 ">
