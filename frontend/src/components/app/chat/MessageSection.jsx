@@ -52,7 +52,7 @@ export default function MessageSection({ currentChatId, openChat }) {
     const { userInfo } = useSelector((state) => state.auth);
     const currentUserId = userInfo._id;
     const messagesColumnRef = useRef(null);
-    const [allMessge, setAllMessge] = useState(JSON.parse(localStorage.allMessge));
+    const [allMessge, setAllMessge] = useState(localStorage.allMessge ? JSON.parse(localStorage.allMessge) : []);
     const [likeType, setLikeType] = useState([]);
 
     const handleMessage = (msg) => {
