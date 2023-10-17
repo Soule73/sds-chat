@@ -4,26 +4,20 @@ import { createElement } from "react";
 
 export default function ChatBoxSideIcon({ name, icon, active, title, onClick = () => { } }) {
     return (
-        <div onClick={onClick} className={`${active ? "border-blue-600" : " dark:border-gray-700/30"} border-b-2 cursor-pointer flex justify-center !bg-transparent flex-col gap-y-1 items-center `}>
+        <div onClick={onClick} className={`${active ? "border-blue-600 text-blue-500 border-b-2" : "dark:text-slate-300 "}  text-xs  cursor-pointer flex justify-center !bg-transparent flex-col items-center `}>
             <IconButton
                 title={title}
                 variant="text"
-                color="blue-gray"
-                className=" !bg-transparent h-6 "
+                className=" !py-0 !bg-transparent "
             >
                 {createElement(icon, {
                     className: `w-6 h-6 stroke-2 ${active
-                        ? " stroke-blue-500 "
-                        : "stroke-gray-800 dark:stroke-slate-100"
+                        ? " fill-blue-500 "
+                        : " dark:fill-slate-100"
                         } `,
                 })}
             </IconButton>
-            <span
-                className={` text-xs ${active ? "  text-blue-500" : "text-gray-800 dark:text-slate-300"
-                    } `}
-            >
-                {name}
-            </span>
+            {name}
         </div>
     );
 }

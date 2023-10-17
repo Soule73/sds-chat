@@ -1,4 +1,4 @@
-import { BellIcon, EllipsisVerticalIcon, ChatBubbleLeftRightIcon, ChevronDownIcon, MagnifyingGlassIcon, PencilSquareIcon, PhoneIcon, UserIcon, VideoCameraIcon } from "@heroicons/react/24/outline";
+import { BellIcon, EllipsisVerticalIcon, ChatBubbleLeftRightIcon, ChevronDownIcon, MagnifyingGlassIcon, PencilSquareIcon, PhoneIcon, UserIcon, VideoCameraIcon } from "@heroicons/react/24/solid";
 import { Card, Menu, MenuHandler, MenuItem, MenuList } from "@material-tailwind/react";
 import ChatBoxSideIcon from "./ChatBoxSideIcon";
 
@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 import { useSwipeable } from "react-swipeable";
 
 
-const CONST_CHAT_BOX_SIDE_BAR_MENU_ITEM = [
+const SECTION_MENU_ITEM = [
     { id: 1, name: "Discussions", icon: ChatBubbleLeftRightIcon },
     { id: 2, name: "Appels", icon: PhoneIcon },
     { id: 3, name: "Contacts", icon: UserIcon },
@@ -22,13 +22,12 @@ const CONST_CHAT_BOX_SIDE_BAR_MENU_ITEM = [
 export default function SideBar({
     handleOpenChat, handleOpenProfileModal,
     openChat, userChats, setChatId }) {
-
     const [activeSection, setActiveSection] = useState(Number(localStorage.sideBarActiveSection) ?? 1)
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const saveActiveSection = (id) => {
-        if (0 < id && id < 5) {
+        if (0 < id && id < (SECTION_MENU_ITEM.length + 1)) {
             setActiveSection(id)
             localStorage.setItem("sideBarActiveSection", id)
         }
@@ -68,29 +67,23 @@ export default function SideBar({
 
     return <Card
         ref={refPassthrough}
-        className={`${!openChat ? "block" : "hidden lg:block"} border-r border-r-gray-200 lg:block z-10 !shadow-none absolute !min-h-full !rounded-l w-full bg-black/10 bg-white dark:bg-slate-900 dark:border-r-gray-600/30 lg:!w-80 !h-full `}
+        className={`${!openChat ? "block" : "hidden lg:block"} absolute h-screen w-full bg-white dark:bg-slate-900 lg:w-80 `}
     >
-        {/* <div className=" !rounded-l w-full !h-full  "> */}
         <div className=" pt-2 w-full h-40 grid gap-2 ">
-            <div className=" px-3 flex justify-between items-center ">
-
-                <div className=" px-3 flex justify-center items-center ">
-                    <div className=" flex justify-center dark:border-gray-600/30 w-8 h-8 items-center p-1 rounded-l-lg border border-blue-gray-100 ">
-                        <MagnifyingGlassIcon className=" dark:stroke-slate-100 w-4 h-4 " />
-                    </div>
-                    <div>
-                        <input
-                            type="search"
-                            name="searchChat"
-                            id="searchChat"
-                            className=" h-8 w-52 dark:text-slate-100 dark:border-gray-600/30 dark:bg-transparent placeholder:text-xs text-sm focus:outline focus:outline-4 focus:outline-blue-600/30 px-1 border-y border-r rounded-r-lg border-y-blue-gray-100 "
-                            placeholder="People, Group & Message "
-                        />
-                    </div>
+            <div className=" flex justify-between items-center ">
+                <div className=" w-[95%] px-3 flex items-center ">
+                    <MagnifyingGlassIcon className=" dark:stroke-slate-100 dark:border-gray-600/30 w-8 h-8 items-center p-1 rounded-l-lg border border-blue-gray-100 " />
+                    <input
+                        type="search"
+                        name="searchChat"
+                        id="searchChat"
+                        className=" w-[95%] h-8 dark:text-slate-100 dark:border-gray-600/30 dark:bg-transparent placeholder:text-xs text-sm focus:outline focus:outline-4 focus:outline-blue-600/30 px-1 border-y border-r rounded-r-lg border-y-blue-gray-100 "
+                        placeholder="People, Group & Message "
+                    />
                 </div>
                 <Menu>
                     <MenuHandler>
-                        <EllipsisVerticalIcon className=" cursor-pointer w-6 h-6 " />
+                        <EllipsisVerticalIcon className=" cursor-pointer w-8 h-6 " />
                     </MenuHandler>
                     <MenuList className=" dark:bg-slate-800 dark:!border-gray-600/30">
                         {[
@@ -115,7 +108,7 @@ export default function SideBar({
             </div>
 
             <div className="border-b border-b-gray-200 dark:border-blue-gray-600/30 grid grid-cols-4 px-3 ">
-                {CONST_CHAT_BOX_SIDE_BAR_MENU_ITEM.map(
+                {SECTION_MENU_ITEM.map(
                     ({ name, icon, id }) =>
                     (
                         <ChatBoxSideIcon
@@ -192,7 +185,6 @@ export default function SideBar({
 
         <ListRecentChat activeSection={activeSection} />
         <ListUserChat handleOpenChat={handleOpenChat} setChatId={setChatId} userChats={userChats} activeSection={activeSection} />
-        {/* </div> */}
     </Card>
 }
 

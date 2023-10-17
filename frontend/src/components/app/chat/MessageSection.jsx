@@ -65,6 +65,8 @@ export default function MessageSection({ currentChatId, openChat }) {
         const allMsg = async () => {
             socket.emit('getUserAllMessage', { userId: currentUserId });
             socket.on('userAllMessage', (msg) => setAllMessge(msg));
+
+            // socket.off('')
         }
 
 
