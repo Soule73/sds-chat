@@ -66,7 +66,7 @@ export default function ChatYou({ hour, message, msgId, likeType, likes, totalLi
                 }
             </div>
             <div className=" flex flex-col gap-y-1">
-                <div className="after:shadow-[0_-25px_0_0_rgb(239,108,0)]  after:content-[''] after:-right-2 after:absolute after:top-[25px] after:h-[15px] after:w-[50px]  after:bg-transparent after:rounded-br-[25px] relative bg-orange-800 text-slate-50 w-auto max-w-max flex flex-col text-start justify-start items-start px-2 pt-3 pb-1 md:px-2 rounded-lg ">
+                <div className="after:shadow-[0_-25px_0_0_rgb(251,140,0)]  after:content-[''] after:-right-2 after:absolute after:top-[25px] after:h-[15px] after:w-[50px]  after:bg-transparent after:rounded-br-[25px] relative bg-orange-600 text-slate-50 w-auto max-w-max flex flex-col text-start justify-start items-start px-2 pt-3 pb-1 md:px-2 rounded-lg ">
                     <p>{message}</p>
                     <div className="   text-xs flex justify-end items-end">
                         <span>{dateFormateHour(hour)}</span>

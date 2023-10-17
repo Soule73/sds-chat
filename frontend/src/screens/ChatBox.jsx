@@ -37,7 +37,7 @@ export default function ChatBox() {
   const handleOpenChat = () => setOpenChat(!openChat);
 
   return (
-    <PullToRefresh onRefresh={() => window.location.reload()} className=" min-h-screen max-h-screen">
+    <PullToRefresh pullingContent={<div className=" w-full text-center font-bold py-1 dark:text-orange-600">{"Tirer pour rafraîchir"}</div>} onRefresh={() => window.location.reload()} className=" min-h-screen max-h-screen">
       <Profile handleOpen={handleOpenProfileModal} open={openProfileModal} />
       <div className=" flex flex-col justify-between items-center lg:flex-row relative w-[99.9%] h-screen rounded shadow-lg shadow-indigo-500/5 ">
 

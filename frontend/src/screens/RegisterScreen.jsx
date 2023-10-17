@@ -53,7 +53,7 @@ const RegisterScreen = () => {
             <Input
               label='Nom'
               type='name'
-              color='blue'
+              color="orange"
               className=' dark:text-slate-300'
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -64,7 +64,7 @@ const RegisterScreen = () => {
             <Input
               label='E-mail'
               type='email'
-              color='blue'
+              color="orange"
               className=' dark:text-slate-300'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -75,7 +75,7 @@ const RegisterScreen = () => {
             <Input
               label='Mot de passe'
               type='password'
-              color='blue'
+              color="orange"
               className=' dark:text-slate-300'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -85,13 +85,13 @@ const RegisterScreen = () => {
             <Input
               label='Confirmer le mot de passe'
               type='password'
-              color='blue'
+              color="orange"
               className=' dark:text-slate-300'
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             ></Input>
           </div>
-          <Button color='blue'
+          <Button color="orange"
             type='submit' className='flex gap-2 items-center'>
 
             {isLoading ? "En cours..." : "Inscription"}

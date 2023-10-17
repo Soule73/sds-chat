@@ -16,7 +16,7 @@ export default ({ mode }) => {
         workbox: {
           clientsClaim: true,
           skipWaiting: true,
-          globPatterns: ["**/*.{svg,html,png,txt}"],
+          globPatterns: ["**/*.{svg,html,css,js,gif,png,txt}"],
         },
         manifest: {
           short_name: "SDS Social",

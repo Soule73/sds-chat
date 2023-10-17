@@ -44,7 +44,7 @@ const LoginScreen = () => {
             <Input
               label='E-mail'
               type='email'
-              color='blue'
+              color="orange"
               value={email}
               className='dark:text-slate-300'
               onChange={(e) => setEmail(e.target.value)}
@@ -55,7 +55,7 @@ const LoginScreen = () => {
             <Input
               label='Mot de passe'
               type='password'
-              color='blue'
+              color="orange"
               className='dark:text-slate-300'
 
               value={password}
@@ -63,7 +63,7 @@ const LoginScreen = () => {
             ></Input>
           </div>
 
-          <Button color='blue'
+          <Button color="orange"
             type='submit' className='flex gap-2 items-center'>
 
             {isLoading ? "En cours..." : "Se connecter"}

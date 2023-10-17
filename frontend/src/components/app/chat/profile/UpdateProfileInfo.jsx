@@ -52,17 +52,17 @@ export function UpdateProfileInfo({ handleOpen, open, title = "Mettre à jour le
             <form onSubmit={submitHandler}>
                 {updateValue === "name"
                     ?
-                    <Input type="text" className=" dark:text-slate-100" value={name} onChange={(e) => setName(e.target.value)} variant="static" color="blue" label="Nom" />
+                    <Input type="text" className=" dark:text-slate-100" value={name} onChange={(e) => setName(e.target.value)} variant="static" color="orange" label="Nom" />
                     : updateValue === "email" ?
-                        <Input type="email" className=" dark:text-slate-100" value={email} onChange={(e) => setEmail(e.target.value)} variant="static" color="blue" label="E-amil" />
+                        <Input type="email" className=" dark:text-slate-100" value={email} onChange={(e) => setEmail(e.target.value)} variant="static" color="orange" label="E-amil" />
                         :
                         <div className=" flex flex-col w-full gap-y-5">
-                            <Input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className=" dark:text-slate-100" variant="static" color="blue" label="Nouveau Mot de passe" />
-                            <Input value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type="password" className=" dark:text-slate-100" variant="static" color="blue" label="Confirmé Mot de passe" />
+                            <Input value={password} onChange={(e) => setPassword(e.target.value)} type="password" className=" dark:text-slate-100" variant="static" color="orange" label="Nouveau Mot de passe" />
+                            <Input value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} type="password" className=" dark:text-slate-100" variant="static" color="orange" label="Confirmé Mot de passe" />
                         </div>
                 }
                 <div className=" flex justify-end mt-6">
-                    <Button color='blue'
+                    <Button color="orange"
                         type='submit' className='flex gap-2 items-center'>
                         {isLoading ? "En cours..." : "Enrégistrer"}
                         {isLoading && <Spinner />}

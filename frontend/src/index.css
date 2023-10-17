@@ -18,7 +18,7 @@
 
     font-family: 'Sofia', sans-serif;
     text-shadow: .04em .04em 0 #002ef8, .08em .08em 0 #002ef8;
-    @apply text-orange-800
+    @apply text-orange-600
 }
 
 /* latin */
