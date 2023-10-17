@@ -67,7 +67,7 @@ export default function SideBar({
 
     return <Card
         ref={refPassthrough}
-        className={`${!openChat ? "block" : "hidden lg:block"} absolute h-screen w-full bg-white dark:bg-slate-900 lg:w-80 `}
+        className={`${!openChat ? "block" : "hidden lg:block"} lg:absolute min-h-screen max-h-screen w-full bg-white dark:bg-slate-900 lg:w-80 `}
     >
         <div className=" pt-2 w-full h-40 grid gap-2 ">
             <div className=" flex justify-between items-center ">
