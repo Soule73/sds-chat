@@ -28,7 +28,7 @@ export default function Switcher() {
           id="custom-switch-component"
           ripple={false}
           checked={darkSide}
-          className="h-full w-full checked:bg-blue-600"
+          className="h-full w-full checked:bg-orange-600"
           containerProps={{
             className: "w-11 h-6",
           }}

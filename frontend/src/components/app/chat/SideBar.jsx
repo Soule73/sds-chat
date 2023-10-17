@@ -1,4 +1,4 @@
-import { BellIcon, EllipsisVerticalIcon, ChatBubbleLeftRightIcon, ChevronDownIcon, MagnifyingGlassIcon, PencilSquareIcon, PhoneIcon, UserIcon, VideoCameraIcon } from "@heroicons/react/24/solid";
+import { BellIcon, EllipsisVerticalIcon, ChatBubbleLeftRightIcon, ChevronDownIcon, PencilSquareIcon, PhoneIcon, UserIcon, VideoCameraIcon } from "@heroicons/react/24/solid";
 import { Card, Menu, MenuHandler, MenuItem, MenuList } from "@material-tailwind/react";
 import ChatBoxSideIcon from "./ChatBoxSideIcon";
 
@@ -35,6 +35,8 @@ export default function SideBar({
     const handlers = useSwipeable({
         onSwipedLeft: () => saveActiveSection(activeSection + 1),
         onSwipedRight: () => saveActiveSection(activeSection - 1),
+        preventScrollOnSwipe: true,
+        trackMouse: true
     });
 
     const [logoutApiCall] = useLogoutMutation();
@@ -71,15 +73,18 @@ export default function SideBar({
     >
         <div className=" pt-2 w-full h-40 grid gap-2 ">
             <div className=" flex justify-between items-center ">
-                <div className=" w-[95%] px-3 flex items-center ">
-                    <MagnifyingGlassIcon className=" dark:stroke-slate-100 dark:border-gray-600/30 w-8 h-8 items-center p-1 rounded-l-lg border border-blue-gray-100 " />
+                {/* <div className=" w-[95%] px-3 flex items-center ">
+                    <MagnifyingGlassIcon className=" dark:stroke-slate-100 dark:border-gray-600/30 w-8 h-8 items-center p-1 rounded-l-lg border border-orange-gray-100 " />
                     <input
                         type="search"
                         name="searchChat"
                         id="searchChat"
-                        className=" w-[95%] h-8 dark:text-slate-100 dark:border-gray-600/30 dark:bg-transparent placeholder:text-xs text-sm focus:outline focus:outline-4 focus:outline-blue-600/30 px-1 border-y border-r rounded-r-lg border-y-blue-gray-100 "
+                        className=" w-[95%] h-8 dark:text-slate-100 dark:border-gray-600/30 dark:bg-transparent placeholder:text-xs text-sm focus:outline focus:outline-4 focus:outline-orange-600/30 px-1 border-y border-r rounded-r-lg border-y-orange-gray-100 "
                         placeholder="People, Group & Message "
                     />
+                </div> */}
+                <div className="logo text-3xl font-bold pl-5 ">
+                    SDS Social
                 </div>
                 <Menu>
                     <MenuHandler>
@@ -95,7 +100,7 @@ export default function SideBar({
                                 <MenuItem
                                     onClick={onclick}
                                     key={"horizontal_menu_" + i}
-                                    className=" hover:!bg-blue-gray-50  dark:hover:!bg-slate-900 focus:bg-slate-900 dark:text-slate-50 dark:hover:text-slate-100"
+                                    className=" hover:!bg-orange-gray-50  dark:hover:!bg-slate-900 focus:bg-slate-900 dark:text-slate-50 dark:hover:text-slate-100"
                                 >
                                     {name}
                                 </MenuItem>
@@ -107,7 +112,7 @@ export default function SideBar({
                 </Menu>
             </div>
 
-            <div className="border-b border-b-gray-200 dark:border-blue-gray-600/30 grid grid-cols-4 px-3 ">
+            <div className=" grid grid-cols-4 ">
                 {SECTION_MENU_ITEM.map(
                     ({ name, icon, id }) =>
                     (

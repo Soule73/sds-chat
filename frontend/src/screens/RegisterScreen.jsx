@@ -101,7 +101,7 @@ const RegisterScreen = () => {
 
         <div className='py-3'>
           <div>
-            Déjà inscrit(e) ? <Link to={`/login`} className=' text-blue-600'>Se connecter</Link>
+            Déjà inscrit(e) ? <Link to={`/login`} className=' text-orange-600'>Se connecter</Link>
           </div>
         </div>
       </Card>

@@ -8,7 +8,7 @@ import { socket } from "../../../socket";
 import { useSelector } from "react-redux";
 import { dateFormateDay } from "../../../utils/chatLogique";
 
-const ShowMsg = ({ message, currentUserId, likeType, setAllMessge }) => {
+const ShowMsg = ({ message, currentUserId, likeType }) => {
 
     return message.map(({ _id, user, content, sentAt, likes, totalLikes }) =>
     (
@@ -21,7 +21,6 @@ const ShowMsg = ({ message, currentUserId, likeType, setAllMessge }) => {
                 likes={likes}
                 totalLikes={totalLikes}
                 message={content}
-                setAllMessge={setAllMessge}
             />
             :
             <ChatResponsee
@@ -33,29 +32,33 @@ const ShowMsg = ({ message, currentUserId, likeType, setAllMessge }) => {
                 photo={user.photo}
                 hour={sentAt}
                 message={content}
-                setAllMessge={setAllMessge}
             />
     ))
 
 }
 
-const SendAndReceivedMsg = ({ dates, currentUserId, likeType, setAllMessge }) => {
+const SendAndReceivedMsg = ({ dates, currentUserId, likeType }) => {
     return dates.map(({ date, messages }) => (
 
         <div key={date}>
             <div className=" my-3 sticky top-2 z-10 flex w-full h-auto justify-center items-center">
                 <span className=" bg-gray-600/30 px-2 py-1 text-xs font-medium rounded-md dark:text-white">{dateFormateDay(date)} </span>
             </div>
-            <ShowMsg setAllMessge={setAllMessge} likeType={likeType} message={messages} currentUserId={currentUserId} />
+            <ShowMsg likeType={likeType} message={messages} currentUserId={currentUserId} />
         </div>
     ))
 }
 export default function MessageSection({ currentChatId, openChat }) {
     const { userInfo } = useSelector((state) => state.auth);
     const currentUserId = userInfo._id;
-    const messagesColumnRef = useRef(null); // Add this
-    const [allMessge, setAllMessge] = useState([]);
+    const messagesColumnRef = useRef(null);
+    const [allMessge, setAllMessge] = useState(JSON.parse(localStorage.allMessge));
     const [likeType, setLikeType] = useState([]);
+
+    const handleMessage = (msg) => {
+        setAllMessge(msg)
+        localStorage.setItem("allMessge", JSON.stringify(msg))
+    };
 
     useEffect(() => {
         axios.post('/api/like/likeType').then((res) => setLikeType(res.data))
@@ -64,27 +67,19 @@ export default function MessageSection({ currentChatId, openChat }) {
     useEffect(() => {
         const allMsg = async () => {
             socket.emit('getUserAllMessage', { userId: currentUserId });
-            socket.on('userAllMessage', (msg) => setAllMessge(msg));
-
-            // socket.off('')
         }
-
-
         allMsg()
-
     }, [currentUserId]);
 
     useEffect(() => {
-        socket.on('sendSucces', (msg) => setAllMessge(msg));
-        messagesColumnRef.current.scrollTop =
-            messagesColumnRef.current.scrollHeight;
-
+        const receivedMsg = async () => socket.on('userAllMessage', handleMessage);
+        receivedMsg()
     }, []);
 
     return <div ref={messagesColumnRef} className={`${openChat ? "block" : "hidden lg:block"} chat-bg bg-gray-800/10 dark:bg-slate-800/60 md:px-5  custome-scroll-bar px-3 md:pt-2 pb-16 overflow-auto xl:overflow-hidden xl:hover:overflow-y-auto w-full h-full  `}>
         {currentChatId && allMessge.map(({ _id, dates }) => {
             return (currentChatId === _id) &&
-                <SendAndReceivedMsg setAllMessge={setAllMessge} likeType={likeType} key={_id} currentUserId={currentUserId} dates={dates} />
+                <SendAndReceivedMsg likeType={likeType} key={_id} currentUserId={currentUserId} dates={dates} />
         })}
     </div>
 }

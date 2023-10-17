@@ -72,7 +72,7 @@ const LoginScreen = () => {
         </form>
         <div className='py-3'>
           <div>
-            Pas de compte ? <Link to='/register' className=' text-blue-600'>{"S'inscrire"}</Link>
+            Pas de compte ? <Link to='/register' className=' text-orange-600'>{"S'inscrire"}</Link>
           </div>
         </div>
       </Card>

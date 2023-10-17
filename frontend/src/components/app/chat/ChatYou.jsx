@@ -16,16 +16,16 @@ import angry from "../../../img/emoji/angry.gif";
 import haha from "../../../img/emoji/haha.gif";
 import yay from "../../../img/emoji/yay.gif";
 
-export default function ChatYou({ hour, message, msgId, likeType, likes, totalLikes, setAllMessge }) {
+export default function ChatYou({ hour, message, msgId, likeType, likes, totalLikes }) {
     const { userInfo } = useSelector((state) => state.auth);
 
     const likeTypeAll = {
-        "like": { text: "J'aime", color: "text-blue-600", emoji: like },
+        "like": { text: "J'aime", color: "text-orange-600", emoji: like },
         "love": { text: "J'adore", color: "text-red-400", emoji: love },
         "yay": { text: "Yay", color: "text-amber-600", emoji: yay },
-        "haha": { text: "Haha", color: "text-blue-600", emoji: haha },
-        "wow": { text: "Waouh", color: "text-blue-600", emoji: wow },
-        "sad": { text: "Triste", color: "text-blue-600", emoji: sad },
+        "haha": { text: "Haha", color: "text-orange-600", emoji: haha },
+        "wow": { text: "Waouh", color: "text-orange-600", emoji: wow },
+        "sad": { text: "Triste", color: "text-orange-600", emoji: sad },
         "angry": { text: "En colére", color: "text-red-800", emoji: angry },
     }
 
@@ -36,8 +36,6 @@ export default function ChatYou({ hour, message, msgId, likeType, likes, totalLi
             likeTypeId: likeId,
             userId: userInfo._id
         });
-
-        socket.on('likeComment', (e) => setAllMessge(e))
     }
 
 
@@ -68,8 +66,8 @@ export default function ChatYou({ hour, message, msgId, likeType, likes, totalLi
                 }
             </div>
             <div className=" flex flex-col gap-y-1">
-                <div className="after:shadow-[0_-25px_0_0_rgb(21,101,192)]  after:content-[''] after:-right-2 after:absolute after:top-[25px] after:h-[15px] after:w-[50px]  after:bg-transparent after:rounded-br-[25px] relative bg-blue-800 text-slate-50 w-auto max-w-max flex flex-col text-start justify-start items-start px-2 pt-3 pb-1 md:px-2 rounded-lg ">
-                    <div className=" ">{message}</div>
+                <div className="after:shadow-[0_-25px_0_0_rgb(239,108,0)]  after:content-[''] after:-right-2 after:absolute after:top-[25px] after:h-[15px] after:w-[50px]  after:bg-transparent after:rounded-br-[25px] relative bg-orange-800 text-slate-50 w-auto max-w-max flex flex-col text-start justify-start items-start px-2 pt-3 pb-1 md:px-2 rounded-lg ">
+                    <p>{message}</p>
                     <div className="   text-xs flex justify-end items-end">
                         <span>{dateFormateHour(hour)}</span>
                     </div>
@@ -116,6 +114,5 @@ ChatYou.propTypes = {
     likeType: PropTypes.array.isRequired,
     likes: PropTypes.array,
     totalLikes: PropTypes.number,
-    setAllMessge: PropTypes.func,
 
 }

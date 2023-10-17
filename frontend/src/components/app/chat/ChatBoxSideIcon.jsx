@@ -4,7 +4,7 @@ import { createElement } from "react";
 
 export default function ChatBoxSideIcon({ name, icon, active, title, onClick = () => { } }) {
     return (
-        <div onClick={onClick} className={`${active ? "border-blue-600 text-blue-500 border-b-2" : "dark:text-slate-300 "}  text-xs  cursor-pointer flex justify-center !bg-transparent flex-col items-center `}>
+        <div onClick={onClick} className={`${active ? "border-orange-800 text-orange-800 border-b-2" : "dark:text-slate-300 dark:border-gray-700/30 border-b"}  text-xs  cursor-pointer flex justify-center !bg-transparent flex-col items-center `}>
             <IconButton
                 title={title}
                 variant="text"
@@ -12,7 +12,7 @@ export default function ChatBoxSideIcon({ name, icon, active, title, onClick = (
             >
                 {createElement(icon, {
                     className: `w-6 h-6 stroke-2 ${active
-                        ? " fill-blue-500 "
+                        ? " fill-orange-800 "
                         : " dark:fill-slate-100"
                         } `,
                 })}

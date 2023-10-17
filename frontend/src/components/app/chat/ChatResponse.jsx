@@ -16,17 +16,17 @@ import { socket } from "../../../socket";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 
-export default function ChatResponse({ hour, message, photo, likeType, msgId, likes, totalLikes, setAllMessge }) {
+export default function ChatResponse({ hour, message, photo, likeType, msgId, likes, totalLikes }) {
 
     const { userInfo } = useSelector((state) => state.auth);
     const [showEmoji, setShowEmoji] = useState(false);
     const likeTypeAll = {
-        "like": { text: "J'aime", color: "text-blue-600", emoji: like },
+        "like": { text: "J'aime", color: "text-orange-600", emoji: like },
         "love": { text: "J'adore", color: "text-red-400", emoji: love },
         "yay": { text: "Yay", color: "text-amber-600", emoji: yay },
-        "haha": { text: "Haha", color: "text-blue-600", emoji: haha },
-        "wow": { text: "Waouh", color: "text-blue-600", emoji: wow },
-        "sad": { text: "Triste", color: "text-blue-600", emoji: sad },
+        "haha": { text: "Haha", color: "text-orange-600", emoji: haha },
+        "wow": { text: "Waouh", color: "text-orange-600", emoji: wow },
+        "sad": { text: "Triste", color: "text-orange-600", emoji: sad },
         "angry": { text: "En colére", color: "text-red-800", emoji: angry },
     }
     const likeForm = async (likeId) => {
@@ -36,8 +36,6 @@ export default function ChatResponse({ hour, message, photo, likeType, msgId, li
             likeTypeId: likeId,
             userId: userInfo._id
         });
-
-        socket.on('likeComment', (e) => setAllMessge(e))
     }
 
 
@@ -125,5 +123,4 @@ ChatResponse.propTypes = {
     likeType: PropTypes.array.isRequired,
     likes: PropTypes.array,
     totalLikes: PropTypes.number,
-    setAllMessge: PropTypes.func,
 }

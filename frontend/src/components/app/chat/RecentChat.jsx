@@ -4,7 +4,7 @@ import { Avatar, Badge, Typography } from "@material-tailwind/react";
 
 export default function RecentChat({ color, photo, message, name, time }) {
     return (
-        <div className=" cursor-pointer px-2 dark:hover:bg-slate-800 hover:bg-blue-gray-50/80 !rounded-none h-16 focus:!h-16 flex gap-x-2 justify-start items-center ">
+        <div className=" cursor-pointer px-2 dark:hover:bg-slate-800 hover:bg-orange-gray-50/80 !rounded-none h-16 focus:!h-16 flex gap-x-2 justify-start items-center ">
             <Badge
                 color={color || "red"}
                 overlap={"circular"}

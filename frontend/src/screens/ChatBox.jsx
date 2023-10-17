@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import SideBar from "../components/app/chat/SideBar";
 import NavBar from "../components/app/chat/NavBar";
+import PullToRefresh from 'react-simple-pull-to-refresh';
 
 import SendMessage from "../components/app/forms/SendMessage";
 import axios from "axios";
@@ -36,9 +37,9 @@ export default function ChatBox() {
   const handleOpenChat = () => setOpenChat(!openChat);
 
   return (
-    <div>
+    <PullToRefresh onRefresh={() => window.location.reload()} className=" min-h-screen max-h-screen">
       <Profile handleOpen={handleOpenProfileModal} open={openProfileModal} />
-      <div className=" dark:border-gray-600/30 border flex flex-col justify-between items-center lg:flex-row relative w-[99.9%] h-screen rounded shadow-lg shadow-indigo-500/5 ">
+      <div className=" flex flex-col justify-between items-center lg:flex-row relative w-[99.9%] h-screen rounded shadow-lg shadow-indigo-500/5 ">
 
         <SideBar
           openChat={openChat}
@@ -59,6 +60,6 @@ export default function ChatBox() {
 
       </div>
 
-    </div>
+    </PullToRefresh>
   );
 }

@@ -21,7 +21,7 @@ const SettingItem = ({ name, icon, action }) => {
             </Typography>
         </div>
         <IconButton onClick={action} variant="text" className=" dark:hover:bg-slate-700/40" >
-            <PencilIcon title="Modifer" className=" cursor-pointer w-5 h-5 fill-blue-800" />
+            <PencilIcon title="Modifer" className=" cursor-pointer w-5 h-5 fill-orange-800" />
         </IconButton>
     </div>
 }

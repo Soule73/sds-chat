@@ -45,7 +45,7 @@ export default function SendMessage({ chatId, parentId = null, openChat, placeho
                 />
 
                 <button id="submit" type="submit" title="Commenté">
-                    <PaperAirplaneIcon className=" w-8 h-8 fill-blue-600 " />
+                    <PaperAirplaneIcon className=" w-8 h-8 fill-orange-600 " />
                 </button>
             </form>
         </div>

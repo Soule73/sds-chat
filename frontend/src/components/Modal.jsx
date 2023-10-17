@@ -12,7 +12,7 @@ export default function Modal({ handleOpen, title, open, children }) {
             <ArrowLeftIcon onClick={handleOpen} className=" md:hidden w-6 h-6 stroke-[4] cursor-pointer" />
             <span>{title} </span>
         </DialogHeader>
-        <DialogBody divider className=" dark:text-blue-gray-300">
+        <DialogBody divider className=" dark:text-orange-gray-300">
             <ToastContainer
                 theme={theme === "dark" ? "dark" : "light"} />
             {children}

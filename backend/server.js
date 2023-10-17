@@ -66,7 +66,7 @@ io.on("connection", (socket) => {
     await createLikeSocket(messageId, likeTypeId, userId);
 
     const userAllMessage = await getAllMessageSocket(userId);
-    io.emit("likeComment", userAllMessage);
+    io.emit("userAllMessage", userAllMessage);
   });
 
   // new socket on SDS CHAT
@@ -79,7 +79,7 @@ io.on("connection", (socket) => {
     await createMessageSocket(parentId, userId, chatId, content);
     const userAllMessage = await getAllMessageSocket(userId);
 
-    io.emit("sendSucces", userAllMessage);
+    io.emit("userAllMessage", userAllMessage);
   });
 
   socket.on("disconnect", () => {
