@@ -22,14 +22,17 @@ export default function ChatBox() {
   const [openChat, setOpenChat] = useState(false);
 
   const { userInfo } = useSelector((state) => state.auth);
-  const [userChats, setUserChats] = useState([]);
+  const [userChats, setUserChats] = useState(localStorage.userChats ? JSON.parse(localStorage.userChats) : []);
   const currentId = userInfo._id;
   const { currentChatId } = localStorage
   const [chatId, setChatId] = useState(currentChatId ? JSON.parse(currentChatId) : []);
 
   useEffect(() => {
     axios.post('/api/chat/userChats', { userId: currentId })
-      .then((e) => setUserChats(e.data))
+      .then((e) => {
+        setUserChats(e.data)
+        localStorage.setItem('userChats', JSON.stringify(e.data))
+      })
       .catch((e) => console.log(e))
 
   }, [currentId, setUserChats]);
