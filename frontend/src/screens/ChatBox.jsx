@@ -19,7 +19,7 @@ export default function ChatBox() {
 
   const handleOpenProfileModal = () => setOpenProfileModal(!openProfileModal);
 
-  const [openChat, setOpenChat] = useState(false);
+  const [openChat, setOpenChat] = useState(localStorage.openChat ? JSON.parse(localStorage.openChat) : false);
 
   const { userInfo } = useSelector((state) => state.auth);
   const [userChats, setUserChats] = useState(localStorage.userChats ? JSON.parse(localStorage.userChats) : []);
@@ -37,7 +37,11 @@ export default function ChatBox() {
 
   }, [currentId, setUserChats]);
 
-  const handleOpenChat = () => setOpenChat(!openChat);
+  const handleOpenChat = () => {
+    setOpenChat(!openChat);
+
+    localStorage.setItem("openChat", JSON.stringify(!openChat));
+  };
 
   return (
     <PullToRefresh pullingContent={<div className=" w-full text-center font-bold py-1 dark:text-orange-600">{"Tirer pour rafraîchir"}</div>} onRefresh={() => window.location.reload()} className=" min-h-screen max-h-screen">
