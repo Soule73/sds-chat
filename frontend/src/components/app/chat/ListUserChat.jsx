@@ -10,8 +10,9 @@ function ContactChat({ user, setChatId, handleOpenChat }) {
         handleOpenChat()
         localStorage.setItem('currentChatId', JSON.stringify(user));
     }
+
     return (
-        <div onClick={saveCurrentChat} className={`${getCurrentChatId === user.chatId ? "lg:bg-orange-600 lg:font-medium hover:text-black lg:text-white " : ""} dark:hover:bg-slate-800  hover:bg-blue-gray-50/80 cursor-pointer   !rounded-none p-2 flex gap-x-2 justify-start items-center `}>
+        <div onClick={saveCurrentChat} className={`${getCurrentChatId === user.chatId ? "lg:bg-orange-600 lg:font-medium hover:text-black lg:text-white " : ""} dark:hover:bg-slate-800  hover:bg-blue-gray-50/80 cursor-pointer p-2 flex gap-x-2 justify-start items-center `}>
             <Avatar
                 size="sm"
                 className=" bg-white p-[2px] "
@@ -24,23 +25,19 @@ function ContactChat({ user, setChatId, handleOpenChat }) {
             >
                 {user.userId.name}({user.userId.email})
             </Typography>
-        </div>
-    );
+        </div>);
 }
-export default function ListUserChat({ activeSection, userChats, setChatId, handleOpenChat }) {
+export default function ListUserChat({ userChats, setChatId, handleOpenChat }) {
 
-    return <div className={`${activeSection !== 3 && "hidden"} w-full h-[calc(100%-10rem)] custome-scroll-bar max-h-[calc(100%-10rem)] overflow-auto xl:overflow-hidden xl:hover:overflow-y-auto `}>
-
+    return <div>
         {userChats && userChats.map(
             (user, id) => (
                 <ContactChat
                     handleOpenChat={handleOpenChat}
                     user={user}
                     setChatId={setChatId}
-                    key={id}
-                />
-            )
-        )}
+                    key={id} />
+            ))}
     </div>
 }
 
@@ -48,11 +45,9 @@ ContactChat.propTypes = {
     user: PropTypes.object,
     setChatId: PropTypes.func,
     handleOpenChat: PropTypes.func.isRequired,
-
-
 }
+
 ListUserChat.propTypes = {
-    activeSection: PropTypes.number,
     userChats: PropTypes.array,
     setChatId: PropTypes.func,
     handleOpenChat: PropTypes.func.isRequired,

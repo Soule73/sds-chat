@@ -35,6 +35,10 @@ const MessageSchema = new Schema({
     type: mongoose.Schema.Types.Date,
     default: null,
   },
+  meta: {
+    type: mongoose.Schema.Types.Array,
+    default: null,
+  },
 });
 
 const Message = model("Message", MessageSchema);

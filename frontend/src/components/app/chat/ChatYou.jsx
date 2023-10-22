@@ -1,38 +1,65 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { Avatar, Menu, MenuHandler, MenuItem, MenuList } from "@material-tailwind/react";
-import { FaceSmileIcon } from "@heroicons/react/24/solid";
+import { ArrowDownCircleIcon, DocumentTextIcon, FaceSmileIcon } from "@heroicons/react/24/solid";
 import { useSelector } from "react-redux";
 
 import { socket } from "../../../socket";
 import dateFormateHour from "../../../utils/chatLogique";
 
 import avatar from "../../../img/avatar/avatar.png";
-import love from "../../../img/emoji/love.gif";
-import like from "../../../img/emoji/like.gif";
-import wow from "../../../img/emoji/wow.gif";
-import sad from "../../../img/emoji/sad.gif";
-import angry from "../../../img/emoji/angry.gif";
-import haha from "../../../img/emoji/haha.gif";
-import yay from "../../../img/emoji/yay.gif";
+import { likeTypeAll } from "../../../utils/constants/contanst";
 
-export default function ChatYou({ hour, message, msgId, likeType, likes, totalLikes }) {
+// eslint-disable-next-line react/prop-types
+const Image = ({ content, name, caption }) => {
+    const [show, setShow] = useState(false);
+    const download = () => {
+        const downladLink = document.createElement('a');
+        downladLink.href = content;
+        downladLink.download = name;
+
+        downladLink.click();
+    }
+    return <div onMouseLeave={() => setShow(false)} onMouseEnter={() => setShow(true)}>
+        {(show) && <ArrowDownCircleIcon onClick={download} className=" top-0 left-2 dark:fill-slate-900 absolute w-8 h-8 cursor-pointer" title="Enregistré" />}
+        <img loading="lazy" onContextMenu={(e) => e.preventDefault()} src={content} className=" my-2 max-w-full md:max-w-sm rounded-xl" alt={name} />
+        {caption && <figcaption className=" border-t mt-1 border-t-gray-700/30">{caption} </figcaption>}
+    </div>
+}
+// eslint-disable-next-line react/prop-types
+const Document = ({ content, name, caption }) => {
+    const download = () => {
+        const downladLink = document.createElement('a');
+        downladLink.href = content;
+        downladLink.download = name;
+
+        downladLink.click();
+    }
+    return <div>
+        <div onContextMenu={(e) => e.preventDefault()} className=" min-w-max flex justify-between gap-2 items-center">
+            <div className=" flex items-center gap-2">
+                <DocumentTextIcon className=" w-10 h-10" />
+                <span>
+                    {name}
+                </span>
+
+            </div>
+            <ArrowDownCircleIcon onClick={download} className=" w-10 h-10 dark:fill-slate-300 cursor-pointer" title="Enregistré" />
+        </div>
+        {caption && <div className=" border-t mt-1 border-t-gray-700/30">
+            {caption}
+        </div>}
+    </div>
+}
+export default function ChatYou({ msg, likeType, }) {
+    // console.log(msg)
     const { userInfo } = useSelector((state) => state.auth);
 
-    const likeTypeAll = {
-        "like": { text: "J'aime", color: "text-orange-600", emoji: like },
-        "love": { text: "J'adore", color: "text-red-400", emoji: love },
-        "yay": { text: "Yay", color: "text-amber-600", emoji: yay },
-        "haha": { text: "Haha", color: "text-orange-600", emoji: haha },
-        "wow": { text: "Waouh", color: "text-orange-600", emoji: wow },
-        "sad": { text: "Triste", color: "text-orange-600", emoji: sad },
-        "angry": { text: "En colére", color: "text-red-800", emoji: angry },
-    }
-
     const [showEmoji, setShowEmoji] = useState(false);
+
     const likeForm = async (likeId) => {
         socket.emit('createLikeComment', {
-            messageId: msgId,
+            messageId: msg._id,
             likeTypeId: likeId,
             userId: userInfo._id
         });
@@ -67,25 +94,34 @@ export default function ChatYou({ hour, message, msgId, likeType, likes, totalLi
             </div>
             <div className=" flex flex-col gap-y-1">
                 <div className="after:shadow-[0_-25px_0_0_rgb(251,140,0)]  after:content-[''] after:-right-2 after:absolute after:top-[25px] after:h-[15px] after:w-[50px]  after:bg-transparent after:rounded-br-[25px] relative bg-orange-600 text-slate-50 w-auto max-w-max flex flex-col text-start justify-start items-start px-2 pt-3 pb-1 md:px-2 rounded-lg ">
-                    <p>{message}</p>
+
+                    {msg.typeContent === "text" ? <p>{msg.content}</p>
+                        :
+                        msg.meta[0]?.type?.startsWith("image/") ?
+                            <Image caption={msg.meta[0]?.caption} content={msg.content} name={msg.meta[0]?.name} />
+                            :
+                            msg.meta[0]?.type?.startsWith("application/") ?
+                                <Document caption={msg.meta[0]?.caption} content={msg.content} name={msg.meta[0]?.name} />
+                                : console.log(msg)
+                    }
                     <div className="   text-xs flex justify-end items-end">
-                        <span>{dateFormateHour(hour)}</span>
+                        <span>{dateFormateHour(msg.sentAt)}</span>
                     </div>
                 </div>
-                {likes.length > 0 && <div className="w-full flex items-center justify-start">
+                {msg.likes.length > 0 && <div className="w-full flex items-center justify-start">
                     <Menu>
                         <MenuHandler>
                             <div className="p-1 rounded-lg flex items-center gap-1 w-max dark:bg-slate-900 dark:text-slate-300 bg-white cursor-pointer  justify-start">
-                                <span className=" text-xs">{Number(totalLikes) > 0 && totalLikes} </span>
+                                <span className=" text-xs">{Number(msg.totalLikes) > 0 && msg.totalLikes} </span>
                                 <div className=" flex">
-                                    {likes.length > 0 && likes.map(({ likeType }, i) => (
+                                    {msg.likes.length > 0 && msg.likes.map(({ likeType }, i) => (
                                         <img style={{ zIndex: 6 - i, marginLeft: i !== 0 && "-5px" }} key={i} className={` rounded-full p-[1px] bg-slate-100 w-5`} src={likeTypeAll[likeType].emoji} alt="emoji" />
                                     ))}
                                 </div>
                             </div>
                         </MenuHandler>
                         <MenuList className=" max-w-full md:max-w-sm min-w-max !p-1 dark:border-none dark:bg-slate-800 dark:text-slate-300">
-                            {likes.length > 0 && likes.map(({ likeType, usersWhoLiked }) => (
+                            {msg.likes.length > 0 && msg.likes.map(({ likeType, usersWhoLiked }) => (
                                 usersWhoLiked.map(({ name, email, pic }, i) => {
                                     return <MenuItem key={i} className=" justify-between dark:hover:bg-slate-900/50 dark:hover:text-slate-300 items-center flex gap-2">
                                         <div className=" flex justify-start items-center gap-3">
@@ -108,11 +144,7 @@ export default function ChatYou({ hour, message, msgId, likeType, likes, totalLi
 }
 
 ChatYou.propTypes = {
-    hour: PropTypes.string.isRequired,
-    message: PropTypes.string.isRequired,
-    msgId: PropTypes.string,
+    msg: PropTypes.object.isRequired,
     likeType: PropTypes.array.isRequired,
-    likes: PropTypes.array,
-    totalLikes: PropTypes.number,
 
 }

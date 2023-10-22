@@ -1,4 +1,3 @@
-// import { DarkModeSwitch } from "react-toggle-dark-mode";
 import { useState } from "react";
 import useDarkSide from "./useDarkSide";
 import { Switch, Typography } from "@material-tailwind/react";

@@ -1,6 +1,5 @@
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import './ReactToastify.css';
 import { useEffect } from 'react';
 
 const App = () => {

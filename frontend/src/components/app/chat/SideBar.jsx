@@ -1,4 +1,4 @@
-import { BellIcon, EllipsisVerticalIcon, ChatBubbleLeftRightIcon, ChevronDownIcon, PencilSquareIcon, PhoneIcon, UserIcon, VideoCameraIcon } from "@heroicons/react/24/solid";
+import { EllipsisVerticalIcon, ChevronDownIcon, PencilSquareIcon, VideoCameraIcon } from "@heroicons/react/24/solid";
 import { Card, Menu, MenuHandler, MenuItem, MenuList } from "@material-tailwind/react";
 import ChatBoxSideIcon from "./ChatBoxSideIcon";
 
@@ -11,18 +11,14 @@ import ListRecentChat from "./ListRecentChat";
 import ListUserChat from "./ListUserChat";
 import PropTypes from "prop-types";
 import { useSwipeable } from "react-swipeable";
+import { SECTION_MENU_ITEM } from "../../../utils/constants/contanst";
 
 
-const SECTION_MENU_ITEM = [
-    { id: 1, name: "Discussions", icon: ChatBubbleLeftRightIcon },
-    { id: 2, name: "Appels", icon: PhoneIcon },
-    { id: 3, name: "Contacts", icon: UserIcon },
-    { id: 4, name: "Notifications", icon: BellIcon },
-];
+
 export default function SideBar({
     handleOpenChat, handleOpenProfileModal,
     openChat, userChats, setChatId }) {
-    const [activeSection, setActiveSection] = useState(Number(localStorage.sideBarActiveSection) ?? 1)
+    const [activeSection, setActiveSection] = useState(Number(localStorage.sideBarActiveSection) || 1)
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -55,7 +51,6 @@ export default function SideBar({
         }
     };
 
-
     // setup ref for your usage
     const myRef = useRef();
 
@@ -69,26 +64,16 @@ export default function SideBar({
 
     return <Card
         ref={refPassthrough}
-        className={`${!openChat ? "block" : "hidden lg:block"} lg:absolute min-h-screen max-h-screen w-full bg-white dark:bg-slate-900 lg:w-80 `}
+        className={`${!openChat ? "block" : "hidden lg:block"} rounded-none lg:absolute min-h-screen max-h-screen overflow-auto custome-scroll-bar w-full bg-white dark:bg-slate-900 lg:w-80 `}
     >
-        <div className=" pt-2 w-full h-40 grid gap-2 ">
+        <div className=" sticky top-0 bg-white dark:bg-slate-900 z-10 pt-2 w-full h-40 grid gap-2 ">
             <div className=" flex justify-between items-center ">
-                {/* <div className=" w-[95%] px-3 flex items-center ">
-                    <MagnifyingGlassIcon className=" dark:stroke-slate-100 dark:border-gray-600/30 w-8 h-8 items-center p-1 rounded-l-lg border border-blue-gray-100 " />
-                    <input
-                        type="search"
-                        name="searchChat"
-                        id="searchChat"
-                        className=" w-[95%] h-8 dark:text-slate-100 dark:border-gray-600/30 dark:bg-transparent placeholder:text-xs text-sm focus:outline focus:outline-4 focus:outline-orange-600/30 px-1 border-y border-r rounded-r-lg border-y-blue-gray-100 "
-                        placeholder="People, Group & Message "
-                    />
-                </div> */}
                 <div className="logo text-3xl font-bold pl-5 ">
                     SDS Social
                 </div>
                 <Menu>
                     <MenuHandler>
-                        <EllipsisVerticalIcon className=" cursor-pointer w-8 h-6 " />
+                        <EllipsisVerticalIcon className=" mr-3 cursor-pointer w-8 h-6 " />
                     </MenuHandler>
                     <MenuList className=" dark:bg-slate-800 dark:!border-gray-600/30">
                         {[
@@ -188,8 +173,9 @@ export default function SideBar({
 
         </div>
 
-        <ListRecentChat activeSection={activeSection} />
-        <ListUserChat handleOpenChat={handleOpenChat} setChatId={setChatId} userChats={userChats} activeSection={activeSection} />
+
+        {activeSection === 3 && <ListUserChat handleOpenChat={handleOpenChat} setChatId={setChatId} userChats={userChats} />}
+        {activeSection === 1 && <ListRecentChat />}
     </Card>
 }
 

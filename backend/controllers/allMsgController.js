@@ -54,6 +54,7 @@ const allMsgForUser = async (chatIds) => {
         deliveredAt: { $first: "$deliveredAt" },
         seenAt: { $first: "$seenAt" },
         sentAt: { $first: "$sentAt" },
+        meta: { $first: "$meta" },
         user: { $first: "$user" },
 
         // Add users to an array for each like type
@@ -78,6 +79,7 @@ const allMsgForUser = async (chatIds) => {
         deliveredAt: { $first: "$deliveredAt" },
         seenAt: { $first: "$seenAt" },
         sentAt: { $first: "$sentAt" },
+        meta: { $first: "$meta" },
         user: { $first: "$user" },
 
         // Add likes to an array
@@ -118,6 +120,7 @@ const allMsgForUser = async (chatIds) => {
         deliveredAt: { $first: "$deliveredAt" },
         seenAt: { $first: "$seenAt" },
         sentAt: { $first: "$sentAt" },
+        meta: { $first: "$meta" },
         user: { $first: "$user" },
         likes: { $push: "$likes" }, // Regroupez à nouveau les likes dans un tableau
       },
@@ -137,6 +140,7 @@ const allMsgForUser = async (chatIds) => {
         deliveredAt: 1,
         seenAt: 1,
         sentAt: 1,
+        meta: 1,
         user: { _id: 1, name: 1, email: 1, pic: 1 },
 
         // Replace empty likes array with null

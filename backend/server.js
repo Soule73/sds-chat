@@ -7,15 +7,14 @@ import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
 import userRoutes from "./routes/userRoutes.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
-
 import chatRoutes from "./routes/chatRoutes.js";
 import {
+  createMessageFileSocket,
   createMessageSocket,
   getAllMessageSocket,
 } from "./controllers/messageController.js";
 import likeRoutes from "./routes/likeRoutes.js";
 import { createLikeSocket } from "./controllers/likeController.js";
-// import chatRoutes from "./routes/chatRoutes.js";
 
 dotenv.config();
 
@@ -75,16 +74,41 @@ io.on("connection", (socket) => {
     socket.emit("userAllMessage", userAllMessage);
   });
 
-  socket.on("sendMessage", async ({ parentId, userId, chatId, content }) => {
-    await createMessageSocket(parentId, userId, chatId, content);
-    const userAllMessage = await getAllMessageSocket(userId);
+  socket.on(
+    "sendMessage",
+    async ({ parentId, userId, type, chatId, content }) => {
+      if (type === "text") {
+        await createMessageSocket(parentId, userId, chatId, content);
+      } else {
+        let files = [];
+        await content.map(async (file) => {
+          files.push({
+            parentId: parentId,
+            userId: userId,
+            type: type,
+            content: file.preview?.toString("base64"),
+            chatId: chatId,
+            typeContent: "file",
+            meta: {
+              name: file.name,
+              size: file.size,
+              type: file.type,
+              caption: file.caption || null,
+            },
+          });
+        });
 
-    io.emit("userAllMessage", userAllMessage);
-  });
+        await createMessageFileSocket(files);
+      }
+
+      const userAllMessage = await getAllMessageSocket(userId);
+      io.emit("userAllMessage", userAllMessage);
+    }
+  );
 
   socket.on("disconnect", () => {
     console.log(`Socket ${socket.id} disconnected`);
   });
 });
 
-httpServer.listen(port, () => console.log(`Server started on port ${port}`));
+httpServer.listen(port);

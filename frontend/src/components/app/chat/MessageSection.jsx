@@ -8,38 +8,17 @@ import { socket } from "../../../socket";
 import { useSelector } from "react-redux";
 import { dateFormateDay } from "../../../utils/chatLogique";
 
-const ShowMsg = ({ message, currentUserId, likeType }) => {
+const ShowMsg = ({ message, currentUserId, likeType }) => (
 
-    return message.map(({ _id, user, content, sentAt, likes, totalLikes }) =>
-    (
-        (user._id === currentUserId) ?
-            <ChatYou
-                likeType={likeType}
-                key={_id}
-                hour={sentAt}
-                msgId={_id}
-                likes={likes}
-                totalLikes={totalLikes}
-                message={content}
-            />
-            :
-            <ChatResponsee
-                likes={likes}
-                msgId={_id}
-                likeType={likeType}
-                key={_id}
-                totalLikes={totalLikes}
-                photo={user.photo}
-                hour={sentAt}
-                message={content}
-            />
+    message.map((msg) => (
+        (msg.user._id === currentUserId) ?
+            <ChatYou key={msg._id} msg={msg} likeType={likeType} /> :
+            <ChatResponsee key={msg._id} msg={msg} likeType={likeType} />
     ))
+)
 
-}
-
-const SendAndReceivedMsg = ({ dates, currentUserId, likeType }) => {
-    return dates.map(({ date, messages }) => (
-
+const SendAndReceivedMsg = ({ dates, currentUserId, likeType }) => (
+    dates.map(({ date, messages }) => (
         <div key={date}>
             <div className=" my-3 sticky top-2 z-10 flex w-full h-auto justify-center items-center">
                 <span className=" bg-gray-600/30 px-2 py-1 text-xs font-medium rounded-md dark:text-white">{dateFormateDay(date)} </span>
@@ -47,7 +26,7 @@ const SendAndReceivedMsg = ({ dates, currentUserId, likeType }) => {
             <ShowMsg likeType={likeType} message={messages} currentUserId={currentUserId} />
         </div>
     ))
-}
+)
 export default function MessageSection({ currentChatId, openChat }) {
     const { userInfo } = useSelector((state) => state.auth);
     const currentUserId = userInfo._id;

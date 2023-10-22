@@ -8,6 +8,8 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import './index.css';
+import './ReactToastify.css';
+
 import store from './store';
 import { Provider } from 'react-redux';
 import LoginScreen from './screens/LoginScreen.jsx';
