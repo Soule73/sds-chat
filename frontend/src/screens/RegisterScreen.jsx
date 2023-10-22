@@ -38,7 +38,6 @@ const RegisterScreen = () => {
         dispatch(setCredentials({ ...res }));
         navigate('/');
       } catch (err) {
-        console.log(err?.data?.message || err.error)
         toast.error(err?.data?.message || err.error, { theme: theme === "dark" ? "dark" : "light" });
       }
     }

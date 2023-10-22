@@ -4,7 +4,14 @@ import { io } from "socket.io-client";
 // const URL = import.meta.env.VITE_SERVER_URL || undefined;
 // const URL = undefined;
 
-export const socket = io(undefined, {
-  withCredentials: true,
-  transports: ["websocket"], // Required when using Vite
-});
+let socket;
+try {
+  socket = io(undefined, {
+    withCredentials: true,
+    transports: ["websocket"], // Required when using Vite
+  });
+} catch (error) {
+  console.error("socket error");
+}
+
+export default socket;

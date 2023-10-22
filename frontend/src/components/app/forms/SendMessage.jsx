@@ -3,7 +3,7 @@ import { PaperAirplaneIcon, PaperClipIcon, XMarkIcon } from "@heroicons/react/24
 import { DocumentTextIcon } from "@heroicons/react/24/outline";
 import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
-import { socket } from "../../../socket";
+import socket from "../../../socket";
 import TextareaAutosize from 'react-textarea-autosize';
 import { toast } from "react-toastify";
 import { IconButton } from "@material-tailwind/react";
@@ -140,8 +140,6 @@ export default function SendMessage({ chatId, parentId = null, openChat, placeho
             let newComment = {};
 
             newComment = { ...form, userId: userInfo._id, parentId: parentId, chatId: chatId };
-
-            console.log(newComment)
 
             socket.emit('sendMessage', newComment);
         }

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import avatar from "../../../img/avatar/avatar.png";
 import dateFormateHour from "../../../utils/chatLogique";
 import { ArrowDownCircleIcon, DocumentTextIcon, FaceSmileIcon } from "@heroicons/react/24/solid";
-import { socket } from "../../../socket";
+import socket from "../../../socket";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import { likeTypeAll } from "../../../utils/constants/contanst";
@@ -53,7 +53,6 @@ const Document = ({ content, name, caption }) => {
 }
 export default function ChatResponse({ msg, likeType }) {
 
-    // console.log(msg)
     const { userInfo } = useSelector((state) => state.auth);
     const [showEmoji, setShowEmoji] = useState(false);
 
@@ -72,7 +71,6 @@ export default function ChatResponse({ msg, likeType }) {
             <div onMouseLeave={() => setShowEmoji(false)} onMouseEnter={() => setShowEmoji(true)} className=" w-[80%] flex gap-2 items-center ">
                 <div className=" flex flex-col gap-y-1">
                     <div
-                        // onContextMenu={(e) => { e.preventDefault(); console.log(e) }}
                         className=" before:shadow-[0_-25px_0_0_#fff] before:dark:shadow-[0_-25px_0_0_rgb(15,23,42)] before:content-[''] before:-left-2  before:absolute before:top-[25px] before:h-[15px] before:w-[50px] before:bg-transparent before:rounded-bl-[25px] relative w-auto max-w-max dark:bg-slate-900 dark:text-slate-300 bg-white flex flex-col text-start justify-start items-start px-2 pt-3 pb-1 md:px-2 rounded-lg ">
                         <div>
                             {msg.typeContent === "text" ? <p>{msg.content}</p>

@@ -47,7 +47,7 @@ const getAllMessageSocket = async (userId) => {
     const messages = await allMsgForUser(chatIds);
     return messages;
   } catch (e) {
-    console.log(e);
+    if (process.env.NODE_ENV !== "production") console.log(e);
   }
 };
 

@@ -19,124 +19,6 @@ const getAllUserChats = async (req, res) => {
   });
 };
 
-// const getAllMessage = async (req, res) => {
-//   const userId = req.body.userId;
-
-//   if (!userId) {
-//     return res.status(400).send({ message: "Please Fill all the feilds" });
-//   }
-
-//   const userChats = await UserChat.find({ userId });
-//   const chatIds = userChats.map((userChat) => userChat.chatId);
-
-//   try {
-//     const messages = await Message.aggregate([
-//       { $match: { chatId: { $in: chatIds } } },
-//       {
-//         $lookup: {
-//           from: "users",
-//           localField: "userId",
-//           foreignField: "_id",
-//           as: "user",
-//         },
-//       },
-//       { $unwind: "$user" },
-//       {
-//         $project: {
-//           _id: 1,
-//           chatId: 1,
-//           content: 1,
-//           typeContent: 1,
-//           parentId: 1,
-//           deliveredAt: 1,
-//           seenAt: 1,
-//           sentAt: 1,
-//           user: { _id: 1, name: 1, email: 1, pic: 1 },
-//         },
-//       },
-//       {
-//         $lookup: {
-//           from: "likes",
-//           localField: "_id",
-//           foreignField: "messageId",
-//           as: "likes",
-//         },
-//       },
-//       {
-//         $unwind: {
-//           path: "$likes",
-//           preserveNullAndEmptyArrays: true,
-//         },
-//       },
-//       {
-//         $lookup: {
-//           from: "liketypes",
-//           localField: "likes.likeTypeId",
-//           foreignField: "_id",
-//           as: "likeType",
-//         },
-//       },
-//       {
-//         $lookup: {
-//           from: "users",
-//           localField: "likes.userId",
-//           foreignField: "_id",
-//           as: "likeUser",
-//         },
-//       },
-
-//       {
-//         $group: {
-//           _id: {
-//             chatId: "$chatId",
-//             date: {
-//               $dateToString: {
-//                 format: "%Y-%m-%d",
-//                 date: "$sentAt",
-//               },
-//             },
-//           },
-//           messages: {
-//             $push: {
-//               _id: "$_id",
-//               chatId: "$chatId",
-//               content: "$content",
-//               typeContent: "$typeContent",
-//               parentId: "$parentId",
-//               deliveredAt: "$deliveredAt",
-//               seenAt: "$seenAt",
-//               sentAt: "$sentAt",
-//               user: "$user",
-//               likes: {
-//                 _id: "$likes._id",
-//                 messageId: "$likes.messageId",
-//                 likeType: { $arrayElemAt: ["$likeType", 0] },
-//                 likeUser: {
-//                   _id: { $arrayElemAt: ["$likeUser._id", 0] },
-//                   name: { $arrayElemAt: ["$likeUser.name", 0] },
-//                   email: { $arrayElemAt: ["$likeUser.email", 0] },
-//                   pic: { $arrayElemAt: ["$likeUser.pic", 0] },
-//                 },
-//               },
-//             },
-//           },
-//         },
-//       },
-//       { $sort: { "_id.date": -1, "_id.messages.sentAt": -1 } },
-
-//       {
-//         $group: {
-//           _id: "$_id.chatId",
-//           dates: { $push: { date: "$_id.date", messages: "$messages" } },
-//         },
-//       },
-//     ]);
-
-//     res.status(200).json(messages);
-//   } catch (e) {
-//     console.log(e);
-//   }
-// };
 const getAllMessage = async (req, res) => {
   const userId = req.body.userId;
 
@@ -152,7 +34,7 @@ const getAllMessage = async (req, res) => {
 
     res.status(200).json(messages);
   } catch (e) {
-    console.log(e);
+    if (process.env.NODE_ENV !== "production") console.log(e);
   }
 };
 const createNewChat = async (req, res) => {

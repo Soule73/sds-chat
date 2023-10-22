@@ -37,7 +37,7 @@ export function UpdateProfileInfo({ handleOpen, open, title = "Mettre à jour le
                     email,
                     password,
                 }).unwrap();
-                console.log(res);
+
                 dispatch(setCredentials(res));
                 handleOpen()
                 toast.success('Mise à jour du profil réussie');

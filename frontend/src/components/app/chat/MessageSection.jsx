@@ -4,7 +4,7 @@ import ChatResponsee from "./ChatResponse"
 import PropTypes from "prop-types";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import { socket } from "../../../socket";
+import socket from "../../../socket";
 import { useSelector } from "react-redux";
 import { dateFormateDay } from "../../../utils/chatLogique";
 

@@ -33,7 +33,6 @@ export default function ChatBox() {
         setUserChats(e.data)
         localStorage.setItem('userChats', JSON.stringify(e.data))
       })
-      .catch((e) => console.log(e))
 
   }, [currentId, setUserChats]);
 

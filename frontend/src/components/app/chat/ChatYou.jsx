@@ -4,7 +4,7 @@ import { Avatar, Menu, MenuHandler, MenuItem, MenuList } from "@material-tailwin
 import { ArrowDownCircleIcon, DocumentTextIcon, FaceSmileIcon } from "@heroicons/react/24/solid";
 import { useSelector } from "react-redux";
 
-import { socket } from "../../../socket";
+import socket from "../../../socket";
 import dateFormateHour from "../../../utils/chatLogique";
 
 import avatar from "../../../img/avatar/avatar.png";
@@ -52,7 +52,6 @@ const Document = ({ content, name, caption }) => {
     </div>
 }
 export default function ChatYou({ msg, likeType, }) {
-    // console.log(msg)
     const { userInfo } = useSelector((state) => state.auth);
 
     const [showEmoji, setShowEmoji] = useState(false);

@@ -59,7 +59,9 @@ app.use(errorHandler);
 
 // Socket.IO
 io.on("connection", (socket) => {
-  console.log(`Socket ${socket.id} connected`);
+  if (process.env.NODE_ENV !== "production") {
+    console.log(`Socket ${socket.id} connected`);
+  }
 
   socket.on("createLikeComment", async ({ messageId, likeTypeId, userId }) => {
     await createLikeSocket(messageId, likeTypeId, userId);
@@ -107,7 +109,9 @@ io.on("connection", (socket) => {
   );
 
   socket.on("disconnect", () => {
-    console.log(`Socket ${socket.id} disconnected`);
+    if (process.env.NODE_ENV !== "production") {
+      console.log(`Socket ${socket.id} disconnected`);
+    }
   });
 });
 
