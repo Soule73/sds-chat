@@ -16,12 +16,12 @@ const SettingItem = ({ name, icon, action }) => {
             {createElement(icon, {
                 className: "w-6 h-6 dark:fill-slate-100"
             })}
-            <Typography className=" text-slate-900 dark:text-slate-300">
+            <Typography className=" dark:text-slate-300">
                 {name}
             </Typography>
         </div>
         <IconButton onClick={action} variant="text" className=" dark:hover:bg-slate-700/40" >
-            <PencilIcon title="Modifer" className=" cursor-pointer w-5 h-5 fill-orange-600" />
+            <PencilIcon title="Modifer" className=" cursor-pointer w-5 h-5 fill-orange-900" />
         </IconButton>
     </div>
 }

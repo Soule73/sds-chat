@@ -45,7 +45,7 @@ const RegisterScreen = () => {
   return (
     <div className={`bg-[url(./img/background.png)] dark:bg-[url(./img/GalaxyBackground.png)] bg-no-repeat bg-cover min-h-screen absolute w-full justify-center items-center flex top-0`}>
 
-      <Card className=' dark:text-slate-300 dark:bg-slate-800 max-w-xl min-w-full md:min-w-[30rem] p-5 mt-24'>
+      <Card className=' 00 dark:bg-slate-800 max-w-xl min-w-full md:min-w-[30rem] p-5 mt-24'>
         <h1>Inscription</h1>
         <form onSubmit={submitHandler}>
           <div className='my-2'>
@@ -53,7 +53,7 @@ const RegisterScreen = () => {
               label='Nom'
               type='name'
               color="orange"
-              className=' dark:text-slate-300'
+              className=' 00'
               value={name}
               onChange={(e) => setName(e.target.value)}
             ></Input>
@@ -64,7 +64,7 @@ const RegisterScreen = () => {
               label='E-mail'
               type='email'
               color="orange"
-              className=' dark:text-slate-300'
+              className=' 00'
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             ></Input>
@@ -75,7 +75,7 @@ const RegisterScreen = () => {
               label='Mot de passe'
               type='password'
               color="orange"
-              className=' dark:text-slate-300'
+              className=' 00'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             ></Input>
@@ -85,7 +85,7 @@ const RegisterScreen = () => {
               label='Confirmer le mot de passe'
               type='password'
               color="orange"
-              className=' dark:text-slate-300'
+              className=' 00'
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
             ></Input>
@@ -100,7 +100,7 @@ const RegisterScreen = () => {
 
         <div className='py-3'>
           <div>
-            Déjà inscrit(e) ? <Link to={`/login`} className=' text-orange-600'>Se connecter</Link>
+            Déjà inscrit(e) ? <Link to={`/login`} className=' text-orange-900'>Se connecter</Link>
           </div>
         </div>
       </Card>

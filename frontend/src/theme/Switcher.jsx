@@ -17,17 +17,17 @@ export default function Switcher() {
 
   return (
     <div className=" py-1 flex justify-between w-full">
-      <Typography className=" text-slate-900 dark:text-slate-300">
+      <Typography className=" dark:text-slate-300">
         Théme
       </Typography>
       <div className=" flex gap-3">
-        <Typography className=" text-slate-900 dark:text-slate-300">Clair</Typography>
+        <Typography className=" dark:text-slate-300">Clair</Typography>
         <Switch
           onChange={(e) => toggleDarkMode(e.target.checked)}
           id="custom-switch-component"
           ripple={false}
           checked={darkSide}
-          className="h-full w-full checked:bg-orange-600"
+          className="h-full w-full checked:bg-orange-900"
           containerProps={{
             className: "w-11 h-6",
           }}
@@ -35,7 +35,7 @@ export default function Switcher() {
             className: "before:hidden left-0.5 border-none",
           }}
         />
-        <Typography className=" text-slate-900 dark:text-slate-300">Sombre</Typography>
+        <Typography className="dark:text-slate-300">Sombre</Typography>
       </div>
     </div>
   );

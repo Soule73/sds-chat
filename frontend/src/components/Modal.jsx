@@ -8,7 +8,7 @@ export default function Modal({ handleOpen, title, open, children }) {
     const { theme } = localStorage;
 
     return <Dialog size="sm" open={open} handler={handleOpen} className=" w-full h-full rounded-none md:rounded-lg md:w-auto md:h-auto !max-w-none divide-none dark:bg-slate-900">
-        <DialogHeader className=" bg-slate-100 shadow dark:bg-slate-800 md:rounded-t-lg py-1 flex gap-3 dark:text-slate-100">
+        <DialogHeader className="dark:text-slate-100 bg-slate-100 shadow dark:bg-slate-800 md:rounded-t-lg py-1 flex gap-3 ">
             <ArrowLeftIcon onClick={handleOpen} className=" md:hidden w-6 h-6 stroke-[4] cursor-pointer" />
             <span>{title} </span>
         </DialogHeader>

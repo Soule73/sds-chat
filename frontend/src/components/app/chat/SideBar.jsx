@@ -64,16 +64,16 @@ export default function SideBar({
 
     return <Card
         ref={refPassthrough}
-        className={`${!openChat ? "block" : "hidden lg:block"} rounded-none lg:absolute min-h-screen max-h-screen overflow-auto custome-scroll-bar w-full bg-white dark:bg-slate-900 lg:w-80 `}
+        className={`${!openChat ? "block" : "hidden lg:block"}  rounded-none lg:absolute min-h-screen max-h-screen overflow-auto custome-scroll-bar w-full bg-white dark:bg-slate-900 lg:w-80 `}
     >
-        <div className=" sticky top-0 bg-white dark:bg-slate-900 z-10 pt-2 w-full h-40 grid gap-2 ">
-            <div className=" flex justify-between items-center ">
-                <div className="logo text-3xl font-bold pl-5 ">
+        <div className=" sticky top-0 bg-white dark:bg-slate-900 z-10 pt-2 w-full h-40 grid ">
+            <div className="dark:border-gray-700/30 border-b lg:border-none flex justify-between items-center ">
+                <div className=" text-slate-900 dark:text-slate-100 text-2xl font-medium pl-5 ">
                     SDS Social
                 </div>
                 <Menu>
                     <MenuHandler>
-                        <EllipsisVerticalIcon className=" mr-3 cursor-pointer w-8 h-6 " />
+                        <EllipsisVerticalIcon className="dark:text-slate-100 stroke-2 mr-3 cursor-pointer w-8 h-6 " />
                     </MenuHandler>
                     <MenuList className=" dark:bg-slate-800 dark:!border-gray-600/30">
                         {[
@@ -85,7 +85,7 @@ export default function SideBar({
                                 <MenuItem
                                     onClick={onclick}
                                     key={"horizontal_menu_" + i}
-                                    className=" hover:!bg-blue-gray-50  dark:hover:!bg-slate-900 focus:bg-slate-900 dark:text-slate-50 dark:hover:text-slate-100"
+                                    className=" hover:!bg-blue-gray-50  dark:hover:!bg-slate-900 focus:bg-slate-900 dark:text-slate-100"
                                 >
                                     {name}
                                 </MenuItem>
@@ -97,7 +97,7 @@ export default function SideBar({
                 </Menu>
             </div>
 
-            <div className=" grid grid-cols-4 ">
+            <div className="dark:text-slate-100 grid grid-cols-4 ">
                 {SECTION_MENU_ITEM.map(
                     ({ name, icon, id }) =>
                     (
@@ -114,16 +114,16 @@ export default function SideBar({
                 )}
             </div>
             <div className=" justify-center items-center px-3 grid grid-cols-2 gap-x-4 ">
-                <div className=" cursor-pointer hover:border-gray-600/30 dark:border-gray-600/30 dark:text-slate-300 flex justify-center items-center border border-b-gray-200 h-8 rounded-3xl ">
+                <div className=" cursor-pointer hover:border-gray-600/30 dark:border-gray-600/30 00 flex justify-center items-center border border-b-gray-200 h-8 rounded-3xl ">
                     <Menu>
                         <MenuHandler>
-                            <div className=" flex items-center justify-center gap-x-2 ">
+                            <div className="dark:text-slate-100 flex items-center justify-center gap-x-2 ">
                                 <VideoCameraIcon className=" w-5 h-5 " />
-                                <span className=" text-xs ">Meet Now</span>
+                                <span className="  text-xs ">Meet Now</span>
                                 <ChevronDownIcon className=" w-5 h-5 " />
                             </div>
                         </MenuHandler>
-                        <MenuList className=" dark:bg-slate-800 dark:text-slate-100 dark:!border-gray-600/30">
+                        <MenuList className=" dark:bg-slate-800  dark:!border-gray-600/30">
                             {[
                                 { name: "Host a meeting" },
                                 { name: "Join a meeting" },
@@ -131,7 +131,7 @@ export default function SideBar({
                                 return (
                                     <MenuItem
                                         key={"meet_now_menu_" + i}
-                                        className=" dark:hover:!bg-slate-900 dark:hover:text-slate-100"
+                                        className=" dark:hover:!bg-slate-900 dark:text-slate-100"
                                     >
                                         {name}
                                     </MenuItem>
@@ -140,16 +140,16 @@ export default function SideBar({
                         </MenuList>
                     </Menu>
                 </div>
-                <div className=" cursor-pointer dark:border-gray-600/30 dark:text-slate-100 hover:border-gray-600/30 flex justify-center items-center border border-b-gray-200 h-8 rounded-3xl ">
+                <div className=" cursor-pointer dark:border-gray-600/30  hover:border-gray-600/30 flex justify-center items-center border border-b-gray-200 h-8 rounded-3xl ">
                     <Menu>
                         <MenuHandler>
-                            <div className=" flex items-center justify-center gap-x-2 ">
+                            <div className="dark:text-slate-100 flex items-center justify-center gap-x-2 ">
                                 <PencilSquareIcon className=" w-5 h-5 " />
                                 <span className=" text-xs ">New Chat</span>
                                 <ChevronDownIcon className=" w-5 h-5 " />
                             </div>
                         </MenuHandler>
-                        <MenuList className=" dark:bg-slate-800 dark:text-slate-100 dark:!border-gray-600/30">
+                        <MenuList className="dark:text-slate-100 dark:bg-slate-800  dark:!border-gray-600/30">
                             {[
                                 { name: "New Group Chat", onclick: () => { } },
                                 { name: "New Moderated Chat", onclick: () => { } },

@@ -43,7 +43,7 @@ export default function ChatBox() {
   };
 
   return (
-    <PullToRefresh pullingContent={<div className=" w-full text-center font-bold py-1 dark:text-orange-600">{"Tirer pour rafraîchir"}</div>} onRefresh={() => window.location.reload()} className=" min-h-screen max-h-screen">
+    <PullToRefresh pullingContent={<div className=" w-full text-center font-bold py-1 dark:text-orange-900">{"Tirer pour rafraîchir"}</div>} onRefresh={() => window.location.reload()} className=" min-h-screen max-h-screen">
       <Profile handleOpen={handleOpenProfileModal} open={openProfileModal} />
       <div className=" flex flex-col justify-between items-center lg:flex-row relative w-[99.9%] h-screen max-h-screen rounded shadow-lg shadow-indigo-500/5 ">
         <SideBar
@@ -53,8 +53,6 @@ export default function ChatBox() {
           userChats={userChats}
           handleOpenProfileModal={handleOpenProfileModal}
         />
-
-
         <Card className={` bg-gray-300 bg-transparent !rounded-none relative !shadow-none lg:ml-[20rem] lg:w-[calc(100%-20rem)] w-full lg:absolute rounded-r rounded-l-none h-full top-0 overflow-auto`}>
           <NavBar openChat={openChat} handleOpenChat={handleOpenChat} chatUser={chatId} chatName={chatId?.userId?.name} />
 
@@ -62,10 +60,7 @@ export default function ChatBox() {
           {chatId.length !== 0 && <MessageSection openChat={openChat} currentChatId={chatId.chatId} />}
           {chatId.length !== 0 && <SendMessage openChat={openChat} chatId={chatId.chatId} placeholder="Votre message" onSucces={() => { }} />}
         </Card>
-
-
       </div>
-
     </PullToRefresh>
   );
 }

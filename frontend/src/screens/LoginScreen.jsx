@@ -36,7 +36,7 @@ const LoginScreen = () => {
   return (
     <div className={`bg-[url(./img/background.png)] dark:bg-[url(./img/GalaxyBackground.png)] bg-no-repeat bg-cover min-h-screen absolute w-full justify-center items-center flex top-0`}>
 
-      <Card className=' w-max h-max md:min-w-[30rem] min-w-full max-w-xl dark:bg-slate-800 dark:text-slate-300 p-5'>
+      <Card className=' w-max h-max md:min-w-[30rem] min-w-full max-w-xl dark:bg-slate-800 00 p-5'>
         <h1>Se connecter</h1>
 
         <form onSubmit={submitHandler}>
@@ -46,7 +46,7 @@ const LoginScreen = () => {
               type='email'
               color="orange"
               value={email}
-              className='dark:text-slate-300'
+              className='00'
               onChange={(e) => setEmail(e.target.value)}
             ></Input>
           </div>
@@ -56,7 +56,7 @@ const LoginScreen = () => {
               label='Mot de passe'
               type='password'
               color="orange"
-              className='dark:text-slate-300'
+              className='00'
 
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -72,7 +72,7 @@ const LoginScreen = () => {
         </form>
         <div className='py-3'>
           <div>
-            Pas de compte ? <Link to='/register' className=' text-orange-600'>{"S'inscrire"}</Link>
+            Pas de compte ? <Link to='/register' className=' text-orange-900'>{"S'inscrire"}</Link>
           </div>
         </div>
       </Card>

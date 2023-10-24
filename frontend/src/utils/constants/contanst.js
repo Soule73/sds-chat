@@ -15,12 +15,12 @@ import {
 } from "@heroicons/react/24/solid";
 
 const likeTypeAll = {
-  like: { text: "J'aime", color: "text-orange-600", emoji: like },
+  like: { text: "J'aime", color: "text-orange-900", emoji: like },
   love: { text: "J'adore", color: "text-red-400", emoji: love },
   yay: { text: "Yay", color: "text-amber-600", emoji: yay },
-  haha: { text: "Haha", color: "text-orange-600", emoji: haha },
-  wow: { text: "Waouh", color: "text-orange-600", emoji: wow },
-  sad: { text: "Triste", color: "text-orange-600", emoji: sad },
+  haha: { text: "Haha", color: "text-orange-900", emoji: haha },
+  wow: { text: "Waouh", color: "text-orange-900", emoji: wow },
+  sad: { text: "Triste", color: "text-orange-900", emoji: sad },
   angry: { text: "En colére", color: "text-red-800", emoji: angry },
 };
 

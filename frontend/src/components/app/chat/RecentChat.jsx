@@ -21,20 +21,20 @@ export default function RecentChat({ color, photo, message, name, time }) {
                 <div className=" pl-2  ">
                     <Typography
                         variant="h6"
-                        className=" text-slate-900 dark:text-slate-100"
+                        className=" dark:text-slate-50"
                     >
                         {name}
                     </Typography>
                     <Typography
                         variant="small"
-                        className="font-normal  text-slate-700 dark:text-slate-400"
+                        className="font-normal text-slate-600 dark:text-slate-400"
                     >
                         {message.substring(0, 20) + "..."}
                     </Typography>
                 </div>
                 <Typography
                     variant="small"
-                    className="font-normal text-slate-600 dark:text-slate-500 text-xs "
+                    className="font-normal text-slate-600 dark:text-slate-400 text-xs "
                 >
                     {time}
                 </Typography>

@@ -168,7 +168,7 @@ export default function SendMessage({ chatId, parentId = null, openChat, placeho
             onDragExit={onDrag.onDragExit}
             onDragEnd={onDrag.onDragEnd}
 
-            className={`${openChat ? "block" : "hidden lg:flex"} ${onDrageEvent ? " border-dashed border-orange-800" : "border-transparent border-b-white dark:border-b-slate-900"} pointer-events-none  border-2  flex-col h-max fixed w-full  xl:w-[calc(100%-20rem)] z-10  bottom-0`}>
+            className={`${openChat ? "block" : "hidden lg:flex"} ${onDrageEvent ? " border-dashed border-orange-800" : "border-transparent border-b-slate-50 border-l-slate-50 dark:border-l-slate-800 dark:border-b-slate-900"} pointer-events-none  border-2  flex-col h-max fixed w-full  xl:w-[calc(100%-20rem)] z-10  bottom-0`}>
 
             {files.length > 0 &&
                 <div className=" flex justify-end">
@@ -192,7 +192,7 @@ export default function SendMessage({ chatId, parentId = null, openChat, placeho
                                 />
 
                             ) : (
-                                <div className=" px-1 h-44 items-center dark:text-slate-100 flex flex-col gap-2">
+                                <div className=" px-1 h-44 items-center  flex flex-col gap-2">
                                     <DocumentTextIcon className="w-16 h-16" />
                                     <span>
                                         {files[filePreview].name}
@@ -202,7 +202,7 @@ export default function SendMessage({ chatId, parentId = null, openChat, placeho
                             )}
                             <div className=" mt-2 px-2">
 
-                                <TextareaAutosize value={fileCaption} onChange={handleCaption} placeholder="Legende(Facultatif)" className=" w-full focus:border-b-2 focus:border-b-orange-800 focus:outline-0 dark:bg-slate-700 custome-scroll-bar dark:text-slate-100 px-2 resize-none max-h-44 py-2 bg-slate-100 focus:border-0 focus:ring-0" />
+                                <TextareaAutosize value={fileCaption} onChange={handleCaption} placeholder="Legende(Facultatif)" className=" w-full focus:border-b-2 focus:border-b-orange-800 focus:outline-0 bg-slate-100 dark:bg-slate-700 custome-scroll-bar  px-2 resize-none max-h-44 py-2 focus:border-0 focus:ring-0" />
                             </div>
                         </div>
                         <div className=" mt-2 items-center flex flex-wrap gap-2 p-2 bg-slate-100 w-full dark:bg-slate-900">
@@ -224,9 +224,9 @@ export default function SendMessage({ chatId, parentId = null, openChat, placeho
                 </div>
             }
 
-            <div className="md:px-3 pointer-events-auto  px-2 pb-2 pt-1 bg-white dark:bg-slate-800">
+            <div className="md:px-3 pointer-events-auto  px-2 pb-2 pt-1 bg-slate-50 dark:bg-slate-800">
                 <form onSubmit={onSubmit}
-                    className={`${files.length > 0 ? "bg-transparent" : "bg-gray-100 dark:bg-slate-700"} py-1 w-full  items-center  dark:text-slate-50 rounded-3xl px-4 flex gap-x-1`}>
+                    className={`${files.length > 0 ? "bg-transparent" : "bg-gray-200 dark:bg-slate-700"} py-1 w-full  items-center rounded-3xl px-4 flex gap-x-1`}>
                     <div className="w-[96%] flex items-center">
                         {!(files.length > 0) &&
                             <TextareaAutosize
@@ -247,13 +247,13 @@ export default function SendMessage({ chatId, parentId = null, openChat, placeho
                     {
                         !(form.content) &&
                         <IconButton onClick={selectFile} variant="text" title="Ajouter un fichier" >
-                            <PaperClipIcon className=" w-6 h-6 fill-orange-600" />
+                            <PaperClipIcon className=" w-6 h-6 fill-orange-900" />
                         </IconButton>
 
                     }
                     {(form.content || files.length > 0) &&
                         <IconButton variant="text" id="submit" type="submit" title="Envoyé">
-                            <PaperAirplaneIcon className=" w-8 h-8 fill-orange-600 " />
+                            <PaperAirplaneIcon className=" w-8 h-8 fill-orange-900 " />
                         </IconButton>
 
 

@@ -12,7 +12,7 @@ function ContactChat({ user, setChatId, handleOpenChat }) {
     }
 
     return (
-        <div onClick={saveCurrentChat} className={`${getCurrentChatId === user.chatId ? "lg:bg-orange-600 lg:font-medium hover:text-black lg:text-white " : ""} dark:hover:bg-slate-800  hover:bg-blue-gray-50/80 cursor-pointer p-2 flex gap-x-2 justify-start items-center `}>
+        <div onClick={saveCurrentChat} className={`${getCurrentChatId === user.chatId ? "lg:bg-orange-900 lg:font-medium hover:text-black lg:text-white " : ""} dark:hover:bg-slate-800  hover:bg-blue-gray-50/80 cursor-pointer p-2 flex gap-x-2 justify-start items-center `}>
             <Avatar
                 size="sm"
                 className=" bg-white p-[2px] "
@@ -21,7 +21,7 @@ function ContactChat({ user, setChatId, handleOpenChat }) {
             />
             <Typography
                 variant="small"
-                className=" dark:text-slate-100"
+                className="dark:text-slate-100 "
             >
                 {user.userId.name}({user.userId.email})
             </Typography>

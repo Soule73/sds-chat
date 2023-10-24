@@ -18,15 +18,15 @@ export default function NavBar({ chatUser, handleOpenChat, openChat }) {
         <div className="flex text-ellipsis justify-start items-center gap-2 ">
             <ArrowLeftIcon
                 onClick={handleOpenChat}
-                className=" lg:hidden dark:stroke-white w-6 h-6  " />
+                className=" lg:hidden cursor-pointe dark:fill-slate-100 w-6 h-6  " />
             {chatUser?.userId &&
-                <div className=" text-black flex gap-x-2  items-center dark:text-slate-100 text-sm md:text-lg ">
+                <div className=" cursor-pointer text-black flex gap-x-2  items-center  text-sm md:text-lg ">
                     <Avatar
                         className=" bg-white p-[2px] !w-9 !h-9 "
                         src={chatUser?.userId?.pic ? chatUser?.userId?.pic : avatar}
                         alt="profile picture"
                     />
-                    <span>{chatUser?.userId?.name}</span>
+                    <span className=" dark:text-slate-100">{chatUser?.userId?.name}</span>
                 </div>}
         </div>
         <div className=" w-max flex items-center gap-x-2 ">
