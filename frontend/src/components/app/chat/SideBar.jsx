@@ -113,6 +113,8 @@ export default function SideBar({
 
                 )}
             </div>
+
+            {/* EN ATTENTE */}
             <div className=" justify-center items-center px-3 grid grid-cols-2 gap-x-4 ">
                 <div className=" cursor-pointer hover:border-gray-600/30 dark:border-gray-600/30 00 flex justify-center items-center border border-b-gray-200 h-8 rounded-3xl ">
                     <Menu>

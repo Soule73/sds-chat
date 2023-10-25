@@ -33,7 +33,7 @@ export default function LikeType({ showEmoji, msgId }) {
     return (likeType.length > 0 && showEmoji) &&
         <Menu>
             <MenuHandler>
-                <FaceSmileIcon className=" cursor-pointer w-8 h-8" />
+                <FaceSmileIcon className=" cursor-pointer min-w-[2rem] min-h-[2rem] w-8 h-8" />
 
             </MenuHandler>
             <MenuList className=' dark:bg-slate-800 border-none max-w-[16rem] flex justify-center p-2 flex-wrap gap-3'>

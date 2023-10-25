@@ -31,5 +31,5 @@ export default ChatDocument;
 ChatDocument.propTypes = {
     content: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    caption: PropTypes.string.isRequired,
+    caption: PropTypes.string,
 }

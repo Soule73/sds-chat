@@ -59,8 +59,7 @@ export default function SendMessage({ chatId, parentId = null, openChat, placeho
         fileRef.current.click();
     }
 
-    const fileSelected = (e) => {
-        const file = e.target.files[0];
+    const addFile = async (file) => {
         if (!file) return;
         if ((file.size / (1024 * 1024)).toFixed(2) < 16) {
 
@@ -78,10 +77,15 @@ export default function SendMessage({ chatId, parentId = null, openChat, placeho
                 updateForm({ type: "file" })
                 updateForm({ content: [...files, newFiles] })
             };
+
+
             reader.readAsDataURL(file);
 
         }
     }
+    // const fileSelected = (e) => {
+
+    // }
 
     const handleRemoveFile = () => {
         const old = oldArray => {
@@ -100,27 +104,14 @@ export default function SendMessage({ chatId, parentId = null, openChat, placeho
         event.preventDefault();
         setOnDrageEvent(false)
         const newFiles = [...files];
+
         for (let i = 0; i < event.dataTransfer.files.length; i++) {
+
             const file = event.dataTransfer.files[i];
-            if (file && (file.size / (1024 * 1024)).toFixed(2) < 16) {
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
 
-                reader.onload = () => {
-
-                    const data = reader.result;
-
-                    newFiles.push({
-                        name: file.name,
-                        size: file.size,
-                        type: file.type,
-                        preview: data,
-                        caption: ""
-                    });
-                }
-            }
-
+            await addFile(file)
         }
+
         setFiles(newFiles);
         updateForm({ type: "file" })
         updateForm({ content: newFiles })
@@ -192,7 +183,7 @@ export default function SendMessage({ chatId, parentId = null, openChat, placeho
                                 />
 
                             ) : (
-                                <div className=" px-1 h-44 items-center  flex flex-col gap-2">
+                                <div className=" dark:text-slate-100 px-1 h-44 items-center  flex flex-col gap-2">
                                     <DocumentTextIcon className="w-16 h-16" />
                                     <span>
                                         {files[filePreview].name}
@@ -202,7 +193,7 @@ export default function SendMessage({ chatId, parentId = null, openChat, placeho
                             )}
                             <div className=" mt-2 px-2">
 
-                                <TextareaAutosize value={fileCaption} onChange={handleCaption} placeholder="Legende(Facultatif)" className=" w-full focus:border-b-2 focus:border-b-orange-800 focus:outline-0 bg-slate-100 dark:bg-slate-700 custome-scroll-bar  px-2 resize-none max-h-44 py-2 focus:border-0 focus:ring-0" />
+                                <TextareaAutosize value={fileCaption} onChange={handleCaption} placeholder="Legende(Facultatif)" className=" w-full dark:text-slate-100 focus:border-b-2 focus:border-b-orange-800 focus:outline-0 bg-slate-100 dark:bg-slate-700 custome-scroll-bar  px-2 resize-none max-h-44 py-2 focus:border-0 focus:ring-0" />
                             </div>
                         </div>
                         <div className=" mt-2 items-center flex flex-wrap gap-2 p-2 bg-slate-100 w-full dark:bg-slate-900">
@@ -233,7 +224,7 @@ export default function SendMessage({ chatId, parentId = null, openChat, placeho
                                 style={{ height }}
                                 onInput={handleOnInput}
                                 type="text"
-                                className=" max-h-40 resize-none custome-scroll-bar py-1 bg-transparent focus:outline-0 w-full  "
+                                className=" dark:text-slate-100 max-h-40 resize-none custome-scroll-bar py-1 bg-transparent focus:outline-0 w-full  "
                                 id="content"
                                 readOnly={files.length > 0}
                                 value={form.content}
@@ -243,9 +234,9 @@ export default function SendMessage({ chatId, parentId = null, openChat, placeho
                         }
                     </div>
 
-                    <input onChange={fileSelected} ref={fileRef} type="file" name="" id="" className=" hidden " />
+                    <input onChange={(e) => addFile(e.target.files[0])} ref={fileRef} type="file" name="" id="" className=" hidden " />
                     {
-                        !(form.content) &&
+                        !(typeof form.content === "string" && form.content.length > 0) &&
                         <IconButton onClick={selectFile} variant="text" title="Ajouter un fichier" >
                             <PaperClipIcon className=" w-6 h-6 fill-orange-900" />
                         </IconButton>
@@ -255,8 +246,6 @@ export default function SendMessage({ chatId, parentId = null, openChat, placeho
                         <IconButton variant="text" id="submit" type="submit" title="Envoyé">
                             <PaperAirplaneIcon className=" w-8 h-8 fill-orange-900 " />
                         </IconButton>
-
-
                     }
                 </form>
             </div>

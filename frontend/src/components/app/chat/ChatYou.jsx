@@ -18,7 +18,7 @@ export default function ChatYou({ msg }) {
             <LikeType showEmoji={showEmoji} msgId={msg._id} />
 
             <div className=" flex flex-col gap-y-1">
-                <div className="after:shadow-[0_-25px_0_0_rgb(230,81,0)] text-slate-900 after:content-[''] after:-right-2 after:absolute after:top-[25px] after:h-[15px] after:w-[50px]  after:bg-transparent after:rounded-br-[25px] relative bg-orange-900 w-auto max-w-max flex flex-col text-start justify-start items-start px-2 py-3 md:px-2 rounded-lg ">
+                <div className="after:shadow-[0_-15px_0_0] after:shadow-orange-900 text-slate-900 after:content-[''] after:-right-2 after:absolute after:top-[15px] after:h-[10px] after:w-[50px]  after:bg-transparent after:rounded-br-[25px] relative bg-orange-900 w-auto max-w-max flex flex-col text-start justify-start items-start px-2 py-3 md:px-2 rounded-lg ">
 
                     {msg.typeContent === "text" ? <p>{msg.content}</p>
                         :
@@ -41,5 +41,4 @@ export default function ChatYou({ msg }) {
 
 ChatYou.propTypes = {
     msg: PropTypes.object.isRequired,
-
 }
