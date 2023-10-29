@@ -65,9 +65,9 @@ export default ({ mode }) => {
           display_override: ["window-controls-overlay"],
           shortcuts: [
             {
-              name: "SmokShop",
+              name: "SDS Chat",
               url: "/",
-              short_name: "Smok",
+              short_name: "SDS Chat",
               description: "SDS Chat : Réseaux Chat de SDS ",
               icons: [
                 {
