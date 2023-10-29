@@ -1,4 +1,4 @@
-# SDS Social
+# SDS Chat
 
 It includes the following:
 

@@ -69,7 +69,7 @@ export default function SideBar({
         <div className=" sticky top-0 bg-white dark:bg-slate-900 z-10 pt-2 w-full h-40 grid ">
             <div className="dark:border-gray-700/30 border-b lg:border-none flex justify-between items-center ">
                 <div className=" text-slate-900 dark:text-slate-100 text-2xl font-medium pl-5 ">
-                    SDS Social
+                    SDS Chat
                 </div>
                 <Menu>
                     <MenuHandler>

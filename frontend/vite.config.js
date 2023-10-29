@@ -19,8 +19,8 @@ export default ({ mode }) => {
           globPatterns: ["**/*.{svg,html,css,js,gif,png,txt}"],
         },
         manifest: {
-          short_name: "SDS Social",
-          name: "SDS Social",
+          short_name: "SDS Chat",
+          name: "SDS Chat",
           lang: "fr-FR",
           icons: [
             {
@@ -54,12 +54,12 @@ export default ({ mode }) => {
               purpose: "monochrome",
             },
           ],
-          categories: ["network", "social"],
+          categories: ["network", "Chat"],
           id: "/",
           start_url: "/",
           display: "standalone",
           theme_color: "#ffffff",
-          description: "SDS Social : Réseaux social de SDS ",
+          description: "SDS Chat : Réseaux Chat de SDS ",
           background_color: "#ffffff",
           scope: "/",
           display_override: ["window-controls-overlay"],
@@ -68,7 +68,7 @@ export default ({ mode }) => {
               name: "SmokShop",
               url: "/",
               short_name: "Smok",
-              description: "SDS Social : Réseaux social de SDS ",
+              description: "SDS Chat : Réseaux Chat de SDS ",
               icons: [
                 {
                   src: "logo192.png",

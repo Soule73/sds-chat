@@ -12,7 +12,7 @@ export default function LikeType({ showEmoji, msgId }) {
     const [likeType, setLikeType] = useState(localStorage.likeType ? JSON.parse(localStorage.likeType) : []);
     useEffect(() => {
         if (!(localStorage.likeType?.length > 0)) {
-            console.log(false)
+
             axios.post('/api/like/likeType').then((res) => {
                 setLikeType(res.data)
                 localStorage.likeType = JSON.stringify(res.data);
