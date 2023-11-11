@@ -13,6 +13,8 @@ export default function Switcher() {
   const toggleDarkMode = (checked) => {
     setTheme(colorTheme);
     setDarkSide(checked);
+    const themecolor = colorTheme === "light" ? "#ffffff" : "#212121";
+    document.querySelector('[name="theme-color"]').content = themecolor
   };
 
   return (
