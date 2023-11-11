@@ -10,7 +10,7 @@ const App = () => {
     // On page load or when changing themes, best to add inline in `head` to avoid FOUC
     if (theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       document.documentElement.classList.add('dark')
-      document.querySelector('[name="theme-color"]').content = "#212121"
+      document.querySelector('[name="theme-color"]').content = "#0f172a"
 
       localStorage.setItem("theme", "dark");
     } else {
